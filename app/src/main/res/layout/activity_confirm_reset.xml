@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    tools:context=".ConfirmResetActivity">
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/back_button_background"
+        android:src="@drawable/ic_arrow_back"
+        android:contentDescription="back"/>
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/passwordResetTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/backButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp"
+        android:text="Password Reset"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+
+    <!-- Subtitle instruction-->
+    <TextView
+        android:id="@+id/passResetInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="24dp"
+        android:text="Your password has been successfully reset. click confirm to set a new password"
+        android:textColor="#888888"
+        android:textSize="14sp"
+        android:layout_below="@id/passwordResetTitle"
+        android:layout_centerHorizontal="true"
+        />
+
+    <!-- Confirm Button -->
+    <Button
+        android:id="@+id/confirmPassResetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/passResetInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#F29B2B"
+        android:gravity="center"
+        android:paddingStart="68dp"
+        android:paddingEnd="68dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="Verify Code"
+        android:textColor="#000000"
+        android:textStyle="bold" />
+</RelativeLayout>

@@ -107,6 +107,7 @@
 
 
         <TextView
+            android:id="@+id/textAuthenticate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
@@ -116,14 +117,14 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/btnSignUp"
+            android:id="@+id/btnRegister"
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:layout_marginBottom="24dp"
             android:backgroundTint="#F7931E"
             android:gravity="center"
             android:padding="12dp"
-            android:text="@string/sign_up"
+            android:text="Register"
             android:textColor="#000"
             android:textSize="18sp"
             android:textStyle="bold"

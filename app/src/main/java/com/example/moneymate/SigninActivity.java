@@ -41,7 +41,7 @@ public class SigninActivity extends AppCompatActivity {
                     // TODO: Replace this with actual sign-in logic / API
                     Toast.makeText(SigninActivity.this, "Signed in as " + username, Toast.LENGTH_SHORT).show();
 
-                     Intent intent = new Intent(SigninActivity.this, SignupActivity.class);
+                     Intent intent = new Intent(SigninActivity.this, SelectionActivity.class);
                      startActivity(intent);
                      finish();
                 }

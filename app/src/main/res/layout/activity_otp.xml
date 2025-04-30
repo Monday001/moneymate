@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    tools:context=".OtpActivity">
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/back_button_background"
+        android:src="@drawable/ic_arrow_back"
+        android:contentDescription="back"/>
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/checkEmailTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/backButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp"
+        android:text="Check your email"
+        android:textSize="20sp"
+        android:textStyle="bold"
+         />
+
+    <!-- Subtitle instruction-->
+    <TextView
+        android:id="@+id/emailInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="24dp"
+        android:text="Reset link sent to moneymate@gmail.com. Enter 5 digit code in the email"
+        android:textColor="#888888"
+        android:textSize="14sp"
+        android:layout_below="@id/checkEmailTitle"
+        android:layout_centerHorizontal="true"
+        />
+
+    <!-- OTP Boxes -->
+    <LinearLayout
+        android:id="@+id/otpLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/otpDigit1"
+            style="@style/OtpBoxStyle"
+            android:hint="1"
+            android:inputType="number"
+            android:maxLength="1"
+            android:autofillHints="sms_otp"/>
+
+        <EditText
+            android:id="@+id/otpDigit2"
+            style="@style/OtpBoxStyle"
+            android:layout_marginStart="8dp"
+            android:hint="2"
+            android:inputType="number"
+            android:maxLength="1"
+            android:autofillHints="sms_otp"/>
+
+        <EditText
+            android:id="@+id/otpDigit3"
+            style="@style/OtpBoxStyle"
+            android:layout_marginStart="8dp"
+            android:hint="3"
+            android:inputType="number"
+            android:maxLength="1"
+            android:autofillHints="sms_otp"/>
+
+        <EditText
+            android:id="@+id/otpDigit4"
+            style="@style/OtpBoxStyle"
+            android:layout_marginStart="8dp"
+            android:hint="4"
+            android:inputType="number"
+            android:maxLength="1"
+            android:autofillHints="sms_otp"/>
+
+        <EditText
+            android:id="@+id/otpDigit5"
+            style="@style/OtpBoxStyle"
+            android:layout_marginStart="8dp"
+            android:hint="5"
+            android:inputType="number"
+            android:maxLength="1"
+            android:autofillHints="sms_otp"/>
+    </LinearLayout>
+
+    <!-- Verify Button -->
+    <Button
+        android:id="@+id/verifyCodeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/otpLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#F29B2B"
+        android:gravity="center"
+        android:paddingStart="68dp"
+        android:paddingEnd="68dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="Verify Code"
+        android:textColor="#000000"
+        android:textStyle="bold" />
+
+
+    <!-- Resend Email Text -->
+
+    <TextView
+        android:id="@+id/resendEmailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/verifyCodeButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Haven't got the email yet? "
+        android:textColor="#888888"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/resendEmailLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/verifyCodeButton"
+        android:layout_alignBaseline="@id/resendEmailText"
+        android:layout_marginTop="32dp"
+        android:layout_toEndOf="@id/resendEmailText"
+        android:text="Resend email"
+        android:textColor="#3B82F6"
+        android:textSize="14sp" />
+</RelativeLayout>
