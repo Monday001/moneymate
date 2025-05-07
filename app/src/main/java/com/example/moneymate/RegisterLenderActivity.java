@@ -15,6 +15,8 @@ import com.example.moneymate.models.Lender;
 import com.example.moneymate.network.ApiClient;
 import com.example.moneymate.network.ApiService;
 
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,6 +63,12 @@ public class RegisterLenderActivity extends AppCompatActivity {
                 return;
             }
 
+            // Email validation
+            if (!isValidEmail(email)) {
+                Toast.makeText(RegisterLenderActivity.this, "Invalid email format", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             if (!password.equals(confirmPassword)) {
                 Toast.makeText(RegisterLenderActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 return;
@@ -69,6 +77,12 @@ public class RegisterLenderActivity extends AppCompatActivity {
             // Proceed to register the lender
             registerLender(companyName, license, email, password);
         });
+    }
+
+    // Function to validate email using regex
+    private boolean isValidEmail(String email) {
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}";
+        return Pattern.matches(emailPattern, email);
     }
 
     // Function to handle the registration API call
@@ -87,11 +101,19 @@ public class RegisterLenderActivity extends AppCompatActivity {
                     SignupResponse signupResponse = response.body();
                     if (signupResponse.isSuccess()) {
                         Toast.makeText(RegisterLenderActivity.this, signupResponse.getMessage(), Toast.LENGTH_LONG).show();
-                        // Navigate to the SignIn activity after successful registration
+
+                        // 👉 Save company name to SharedPreferences
+                        getSharedPreferences("userPrefs", MODE_PRIVATE)
+                                .edit()
+                                .putString("companyName", companyName)  // The one user entered
+                                .apply();
+
+                        // Navigate to the SignIn activity
                         Intent intent = new Intent(RegisterLenderActivity.this, AuthenticateLenderActivity.class);
                         startActivity(intent);
                         finish(); // Close RegisterLenderActivity
-                    } else {
+                    }
+                    else {
                         Toast.makeText(RegisterLenderActivity.this, signupResponse.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 } else {

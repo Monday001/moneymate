@@ -7,7 +7,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    private static final String BASE_URL = "http://192.168.79.126/moneymate/";
+    private static final String BASE_URL = "http://192.168.186.126/moneymate/";
     private static Retrofit retrofit;
 
     public static Retrofit getRetrofitInstance() {

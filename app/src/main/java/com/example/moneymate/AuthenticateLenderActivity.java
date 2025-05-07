@@ -1,6 +1,7 @@
 package com.example.moneymate;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -66,10 +67,24 @@ public class AuthenticateLenderActivity extends AppCompatActivity {
                     LoginResponse loginResponse = response.body();
                     if (loginResponse.isSuccess()) {
                         Toast.makeText(AuthenticateLenderActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(AuthenticateLenderActivity.this, LenderHomeActivity.class);
-                        intent.putExtra("lender_id", loginResponse.getLenderId());
-                        startActivity(intent);
-                        finish();
+
+                        try {
+                            int lenderId = Integer.parseInt(loginResponse.getLenderId());
+
+                            // Save lender_id in SharedPreferences
+                            SharedPreferences prefs = getSharedPreferences("moneymate_prefs", MODE_PRIVATE);
+                            prefs.edit().putInt("lender_id", lenderId).apply();
+
+                            // Redirect to home activity
+                            Intent intent = new Intent(AuthenticateLenderActivity.this, LenderHomeActivity.class);
+                            startActivity(intent);
+                            finish();
+
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(AuthenticateLenderActivity.this, "Invalid lender ID format", Toast.LENGTH_SHORT).show();
+                            Log.e("LENDER_ID_ERROR", "Failed to parse lender ID", e);
+                        }
+
                     } else {
                         Toast.makeText(AuthenticateLenderActivity.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
                     }
@@ -86,6 +101,8 @@ public class AuthenticateLenderActivity extends AppCompatActivity {
                     Toast.makeText(AuthenticateLenderActivity.this, "Login failed", Toast.LENGTH_LONG).show();
                 }
             }
+
+
 
 
             @Override

@@ -1,42 +1,59 @@
 package com.example.moneymate.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moneymate.R;
+import com.example.moneymate.TransactionDetailActivity;
 import com.example.moneymate.models.LenderHistory;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class LenderHistoryAdapter extends RecyclerView.Adapter<LenderHistoryAdapter.LenderHistoryViewHolder> {
+public class LenderHistoryAdapter extends RecyclerView.Adapter<LenderHistoryAdapter.ViewHolder> {
 
-    private List<LenderHistory> lenderHistoryList;
+    private final Context context;
+    private final List<LenderHistory> lenderHistoryList;
 
-    public LenderHistoryAdapter(List<LenderHistory> lenderHistoryList) {
+    public LenderHistoryAdapter(Context context, List<LenderHistory> lenderHistoryList) {
+        this.context = context;
         this.lenderHistoryList = lenderHistoryList;
     }
 
     @NonNull
     @Override
-    public LenderHistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lender_history, parent, false);
-        return new LenderHistoryViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_lender_history, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LenderHistoryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         LenderHistory item = lenderHistoryList.get(position);
-        holder.nameTextView.setText(item.getName());
-        holder.amountTextView.setText(item.getAmount());
 
-        // Optional: Set a click listener for the view button
+        holder.nameText.setText(item.getName());
+        holder.amountText.setText(item.getAmount());
+
         holder.viewButton.setOnClickListener(v -> {
-            // Handle view button click here
+            Intent intent = new Intent(context, TransactionDetailActivity.class);
+            intent.putExtra("name", item.getName());
+            intent.putExtra("amount", item.getAmount());
+            intent.putExtra("status", item.getStatus());
+            intent.putExtra("date", item.getDate());
+            intent.putExtra("phone", item.getPhone());
+            intent.putExtra("email", item.getEmail());
+            intent.putExtra("idFront", item.getIdFront());
+            intent.putExtra("idBack", item.getIdBack());
+            intent.putParcelableArrayListExtra("history", new ArrayList<>(item.getPaymentHistory()));
+            context.startActivity(intent);
         });
     }
 
@@ -45,16 +62,15 @@ public class LenderHistoryAdapter extends RecyclerView.Adapter<LenderHistoryAdap
         return lenderHistoryList.size();
     }
 
-    static class LenderHistoryViewHolder extends RecyclerView.ViewHolder {
-        TextView nameTextView, amountTextView;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView nameText, amountText;
         Button viewButton;
 
-        public LenderHistoryViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.lender_history_username);
-            amountTextView = itemView.findViewById(R.id.lender_history_amount);
+            nameText = itemView.findViewById(R.id.lender_history_username);
+            amountText = itemView.findViewById(R.id.lender_history_amount);
             viewButton = itemView.findViewById(R.id.lender_view_button);
         }
     }
 }
-

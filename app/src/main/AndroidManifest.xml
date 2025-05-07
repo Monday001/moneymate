@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <!-- INTERNET permission goes here -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- INTERNET permission -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- READ_EXTERNAL_STORAGE permission -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +18,31 @@
         android:theme="@style/Theme.Moneymate"
         tools:targetApi="31">
         <activity
+            android:name=".RepaymentDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoanReviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoanApplicationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CompanyTermsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BorrowerDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BorrowerHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TransactionDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BottomNavActivity"
+            android:exported="false"
+            android:label="@string/title_activity_bottom_nav" />
+        <activity
             android:name=".SuccessfulResetActivity"
             android:exported="false" />
         <activity
@@ -28,9 +54,7 @@
         <activity
             android:name=".OtpActivity"
             android:exported="false" />
-        <activity
-            android:name=".LenderHomeActivity"
-            android:exported="false" />
+        <activity android:name=".LenderHomeActivity" />
         <activity
             android:name=".RegisterLenderActivity"
             android:exported="false" />

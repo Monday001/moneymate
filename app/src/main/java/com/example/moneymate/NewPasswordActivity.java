@@ -21,7 +21,7 @@ public class NewPasswordActivity extends AppCompatActivity {
 
     private EditText newPasswordInput, confirmPasswordInput;
     private Button updatePasswordButton;
-    private String email; // from intent
+    private String phonenumber; // from intent
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class NewPasswordActivity extends AppCompatActivity {
         confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
         updatePasswordButton = findViewById(R.id.updatePasswordButton);
 
-        email = getIntent().getStringExtra("email");
+        phonenumber = getIntent().getStringExtra("phonenumber");
 
         updatePasswordButton.setOnClickListener(v -> {
             String newPass = newPasswordInput.getText().toString().trim();
@@ -48,7 +48,7 @@ public class NewPasswordActivity extends AppCompatActivity {
                 return;
             }
 
-            resetPassword(email, newPass);
+            resetPassword(phonenumber, newPass);
         });
     }
 
@@ -62,7 +62,7 @@ public class NewPasswordActivity extends AppCompatActivity {
             public void onResponse(Call<GenericResponse> call, Response<GenericResponse> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
                     Toast.makeText(NewPasswordActivity.this, "Password updated successfully", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(NewPasswordActivity.this, SigninActivity.class);
+                    Intent intent = new Intent(NewPasswordActivity.this, SuccessfulResetActivity.class);
                     startActivity(intent);
                     finish();
                 } else {

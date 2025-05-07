@@ -12,6 +12,11 @@
         <font color="#3F00FF">Money</font><font color="#F7931E">Mate</font>
     ]]>
     </string>
+    <string name="title_activity_bottom_nav">BottomNavActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_borrower_home">BorrowerHomeActivity</string>
 
 
 </resources>

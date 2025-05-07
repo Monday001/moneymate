@@ -89,11 +89,18 @@ public class SignupActivity extends AppCompatActivity {
                     if (signupResponse.isSuccess()) {
                         Toast.makeText(SignupActivity.this, signupResponse.getMessage(), Toast.LENGTH_LONG).show();
 
+                        // Store username in SharedPreferences
+                        getSharedPreferences("userPrefs", MODE_PRIVATE)
+                                .edit()
+                                .putString("username", user.getUsername())
+                                .apply();
+
                         // Navigate to SignIn Activity
                         Intent intent = new Intent(SignupActivity.this, SigninActivity.class);
                         startActivity(intent);
-                        finish(); // Close the SignupActivity
-                    } else {
+                        finish();
+                    }
+                     else {
                         Toast.makeText(SignupActivity.this, signupResponse.getMessage(), Toast.LENGTH_LONG).show();
                         clearFields();
                     }

@@ -24,5 +24,15 @@ public class SelectionActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button borrowerProceedBtn = findViewById(R.id.borrower_proceed_button);
+        borrowerProceedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SelectionActivity.this, BorrowerHomeActivity.class); // Or BorrowerActivity if that's what you named it
+                startActivity(intent);
+            }
+        });
+
     }
 }
