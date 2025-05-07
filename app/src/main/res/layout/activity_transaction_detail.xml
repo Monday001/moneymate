@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/detail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lorem"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:layout_marginTop="48dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <!-- Amount -->
+    <TextView
+        android:id="@+id/detail_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kshs. 40,000"
+        android:textSize="24sp"
+        android:textColor="#4A00FF"
+        app:layout_constraintTop_toBottomOf="@id/detail_name"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"/>
+
+    <!-- Transaction Status -->
+    <TextView
+        android:id="@+id/detail_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Transaction Complete"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/detail_amount"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Payment History Label -->
+    <TextView
+        android:id="@+id/historyLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Payment History"
+        android:textSize="14sp"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/detail_status"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="48dp"/>
+
+    <View
+        android:id="@+id/bottomLine"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="24dp"
+        android:background="#CCCCCC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/historyLabel" />
+
+
+    <!-- RecyclerView for History -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/detail_payment_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottomLine" />
+
+    <!-- Close Button -->
+    <Button
+        android:id="@+id/closeButton"
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:padding="16dp"
+        android:backgroundTint="#F7931E"
+        android:text="CLOSE"
+        android:textColor="#000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lender_detail_payment_history" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

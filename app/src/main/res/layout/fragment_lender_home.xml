@@ -1,0 +1,225 @@
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0E0E0"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Company name and Profile Circle -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:layout_marginTop="24dp">
+
+            <TextView
+                android:id="@+id/company_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Company xyz"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <View
+                android:id="@+id/userLender"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/circle_border"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <!-- Info Cards Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selection_tile"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:elevation="4dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTintMode="src_in"
+            android:layout_marginHorizontal="20dp"
+            android:clipToPadding="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:weightSum="2"
+                android:layout_marginBottom="8dp">
+
+                <!-- Users Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/btn_tile"
+                    android:padding="12dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/userTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Users"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="18dp"/>
+
+                    <TextView
+                        android:id="@+id/userTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <!-- Approved Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/btn_tile"
+                    android:padding="12dp"
+                    android:layout_marginStart="8dp">
+
+                    <TextView
+                        android:id="@+id/approvedTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Approved"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="18dp"/>
+
+                    <TextView
+                        android:id="@+id/approvedTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:weightSum="2">
+
+                <!-- Complete Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/btn_tile"
+                    android:padding="12dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/deniedTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Denied"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="18dp"/>
+
+                    <TextView
+                        android:id="@+id/deniedTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <!-- Pending Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/btn_tile"
+                    android:padding="12dp"
+                    android:layout_marginStart="8dp">
+
+                    <TextView
+                        android:id="@+id/pendingTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pending"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="18dp"/>
+
+                    <TextView
+                        android:id="@+id/pendingTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="03"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- History Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="History"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- History Items -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginHorizontal="20dp">
+
+            <!-- Single Item -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lender_history_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                />
+
+
+            <!-- Repeat above block for other users like Lorem, Ipsum -->
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

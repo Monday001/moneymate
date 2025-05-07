@@ -1,0 +1,66 @@
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0E0E0"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Title and Profile Circle -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:layout_marginTop="24dp">
+
+            <TextView
+                android:id="@+id/p2pTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MoneyMate p2p"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold"/>
+
+            <View
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/circle_border"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <!-- History Items -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="24dp"
+            >
+
+            <!-- Single Item -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/p2p_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                />
+
+
+            <!-- Repeat above block for other users like Lorem, Ipsum -->
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

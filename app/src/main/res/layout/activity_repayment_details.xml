@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    android:padding="16dp">
+
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollableContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:overScrollMode="ifContentScrolls"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/repayButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="XYZ"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:layout_marginTop="48dp" />
+
+            <!-- Amount -->
+            <TextView
+                android:id="@+id/detail_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kshs. 40,000"
+                android:textSize="24sp"
+                android:textColor="#4A00FF"
+                android:layout_marginTop="24dp" />
+
+            <!-- Payment History Label -->
+            <TextView
+                android:id="@+id/historyLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment History"
+                android:textSize="14sp"
+                android:textColor="#000"
+                android:layout_marginTop="48dp" />
+
+            <View
+                android:id="@+id/bottomLine"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="24dp"
+                android:background="#CCCCCC" />
+
+            <!-- RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lender_detail_payment_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:nestedScrollingEnabled="false"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Fixed Bottom Button -->
+    <Button
+        android:id="@+id/repayButton"
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:padding="16dp"
+        android:backgroundTint="#F7931E"
+        android:text="REPAY"
+        android:textColor="#000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
