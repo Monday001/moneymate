@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/success_dialog_bg"
+    android:gravity="center"
+    android:elevation="4dp">
+
+    <ImageView
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/check_circle"
+        android:contentDescription="Success"
+        android:layout_gravity="center"
+        app:tint="#F7931E" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Success"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginTop="16dp"
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loan application successful!"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/black"
+        android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#F7931E"
+        app:cornerRadius="8dp"
+        android:clickable="true"
+        android:elevation="4dp"
+        android:focusable="true"
+        android:layout_marginTop="58dp"
+        android:layout_marginBottom="8dp"
+        android:paddingLeft="24dp"
+        android:paddingTop="8dp"
+        android:paddingRight="24dp"
+        android:paddingBottom="8dp"
+        android:text="OK"
+        android:textColor="#ffffff" />
+
+</LinearLayout>
