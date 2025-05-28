@@ -3,11 +3,13 @@ package com.example.moneymate.network;
 import com.example.moneymate.models.GenericResponse;
 import com.example.moneymate.models.Lender;
 import com.example.moneymate.models.LenderHistoryResponse;
+import com.example.moneymate.models.LenderIdResponse;
 import com.example.moneymate.models.LenderLoginRequest;
 import com.example.moneymate.models.LenderTermsRequest;
 import com.example.moneymate.models.Loan;
 import com.example.moneymate.models.LoanResponse;
 import com.example.moneymate.models.LoanStatusResponse;
+import com.example.moneymate.models.LoginRequest;
 import com.example.moneymate.models.LoginResponse;
 import com.example.moneymate.models.P2PResponse;
 import com.example.moneymate.models.Repayment;
@@ -54,7 +56,8 @@ public interface ApiService {
     Call<SignupResponse> registerLender(@Body Lender lender);
 
     @POST("signin.php")
-    Call<LoginResponse> authenticateLender(@Body LenderLoginRequest lender);
+    @Headers("Content-Type: application/json")
+    Call<LoginResponse> loginUser(@Body LoginRequest request);
 
     @POST("submitTerms.php")
     Call<ResponseBody> submitTerms(@Body LenderTermsRequest terms);
@@ -62,7 +65,7 @@ public interface ApiService {
     @Multipart
     @POST("apply_loan.php")
     Call<GenericResponse> applyForLoan(
-            @Part("loan_data") RequestBody loanData, // JSON string
+            @Part("loan_details") RequestBody loanDetails,
             @Part MultipartBody.Part idFront,
             @Part MultipartBody.Part idBack
     );
@@ -80,12 +83,19 @@ public interface ApiService {
     @GET("get_loans.php")
     Call<List<Loan>> getLoans(@Query("borrower_id") int borrowerId);
 
-    @GET("get_repayment_details.php") // This is the method we adjusted
+    @GET("get_repayment_details.php")
     Call<RepaymentResponse> getRepayments(@Query("loan_id") int loanId); // Returns RepaymentResponse, not a list
 
     @Headers("Content-Type: application/json")
-    @POST("getP2PData.php")
-    Call<P2PResponse> getP2PData(@Body Map<String, Integer> body);
+    @GET("getP2PData.php")
+    Call<P2PResponse> getP2PData(@Query("lender_id") int lenderId);
+
+    @GET("getP2PData.php")
+    Call<P2PResponse> getLendersWithTerms(); // Reusing P2PResponse
+
+    @GET("get_lender_id.php")
+    Call<LenderIdResponse> getLenderIdByEmail(@Query("email") String email);
+
 
     @GET("getLenderHistory.php")
     Call<LenderHistoryResponse> getLenderHistory(@Query("lender_id") int lenderId);

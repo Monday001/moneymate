@@ -21,6 +21,7 @@ import com.example.moneymate.models.LoanStatusResponse;
 import com.example.moneymate.network.ApiClient;
 import com.example.moneymate.network.ApiService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,6 +31,9 @@ import retrofit2.Response;
 public class LenderHomeFragment extends Fragment {
 
     private RecyclerView recyclerView;
+
+    private LenderHistoryAdapter lenderHistoryAdapter;
+
     private TextView userTitle, approvedTitle, deniedTitle, pendingTitle;
     private View userLenderView;  // This will reference your logout trigger View
 
@@ -40,6 +44,9 @@ public class LenderHomeFragment extends Fragment {
         // RecyclerView for history
         recyclerView = rootView.findViewById(R.id.lender_history_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        lenderHistoryAdapter = new LenderHistoryAdapter(getContext(), new ArrayList<>());
+        recyclerView.setAdapter(lenderHistoryAdapter);
 
         // Status count TextViews
         userTitle = rootView.findViewById(R.id.userTitle);
@@ -99,7 +106,7 @@ public class LenderHomeFragment extends Fragment {
             public void onResponse(Call<LenderHistoryResponse> call, Response<LenderHistoryResponse> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
                     List<LenderHistory> historyList = response.body().getLoans();
-                    recyclerView.setAdapter(new LenderHistoryAdapter(getContext(), historyList));
+                    lenderHistoryAdapter.setHistoryList(historyList);  // Update the adapter's list
                 } else {
                     Toast.makeText(getContext(), "Failed to load lender history", Toast.LENGTH_SHORT).show();
                 }
@@ -111,6 +118,8 @@ public class LenderHomeFragment extends Fragment {
             }
         });
     }
+
+
 
     // Method to show logout confirmation dialog
     private void showLogoutDialog() {

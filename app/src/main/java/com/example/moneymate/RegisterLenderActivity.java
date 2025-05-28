@@ -88,7 +88,7 @@ public class RegisterLenderActivity extends AppCompatActivity {
     // Function to handle the registration API call
     private void registerLender(String companyName, String license, String email, String password) {
         // Create a lender object with the user input data
-        Lender lender = new Lender(companyName, license, email, password);
+        Lender lender = new Lender(0, companyName, license, email, password);
 
         // Use the ApiService to register the lender
         ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
@@ -102,18 +102,18 @@ public class RegisterLenderActivity extends AppCompatActivity {
                     if (signupResponse.isSuccess()) {
                         Toast.makeText(RegisterLenderActivity.this, signupResponse.getMessage(), Toast.LENGTH_LONG).show();
 
-                        // 👉 Save company name to SharedPreferences
+                        // Save company name and lender ID to SharedPreferences
                         getSharedPreferences("userPrefs", MODE_PRIVATE)
                                 .edit()
-                                .putString("companyName", companyName)  // The one user entered
+                                .putString("companyName", companyName)  // Save company name
+                                .putInt("lenderId", signupResponse.getLenderId())  // Save lender ID
                                 .apply();
 
-                        // Navigate to the SignIn activity
+                        // Navigate to AuthenticateLenderActivity
                         Intent intent = new Intent(RegisterLenderActivity.this, AuthenticateLenderActivity.class);
                         startActivity(intent);
                         finish(); // Close RegisterLenderActivity
-                    }
-                    else {
+                    } else {
                         Toast.makeText(RegisterLenderActivity.this, signupResponse.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 } else {

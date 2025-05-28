@@ -16,24 +16,32 @@ import java.util.List;
 
 public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder> {
 
-    private List<Loan> loanList = new ArrayList<>();
+    private final List<Loan> loanList;
+
+    public LoanAdapter() {
+        this.loanList = new ArrayList<>();
+    }
 
     public void setLoanList(List<Loan> list) {
-        this.loanList = list;
+        loanList.clear();               // Clear previous data
+        if (list != null) {
+            loanList.addAll(list);     // Add new data
+        }
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public LoanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_borrower_history, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_borrower_history, parent, false);
         return new LoanViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull LoanViewHolder holder, int position) {
         Loan loan = loanList.get(position);
-        holder.title.setText(loan.purpose);
+        holder.title.setText(loan.purpose != null ? loan.purpose : "No purpose");
         holder.amount.setText(String.valueOf(loan.amount));
     }
 

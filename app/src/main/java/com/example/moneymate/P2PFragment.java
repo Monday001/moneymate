@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,78 +15,83 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moneymate.adapter.P2PAdapter;
-import com.example.moneymate.models.CompanyItem;
+import com.example.moneymate.models.P2PItem;
 import com.example.moneymate.models.P2PResponse;
 import com.example.moneymate.network.ApiClient;
 import com.example.moneymate.network.ApiService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import android.util.Log;
-
 public class P2PFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private List<CompanyItem> companyList;
+    private ProgressBar progressBar;
+    private TextView emptyView;
+    private List<P2PItem> companyList;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_p2p, container, false); // Replace with your layout
+        View view = inflater.inflate(R.layout.fragment_p2p, container, false);
+
         recyclerView = view.findViewById(R.id.p2p_recycler_view);
+        progressBar = view.findViewById(R.id.p2p_progress_bar);
+        emptyView = view.findViewById(R.id.p2p_empty_view);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setNestedScrollingEnabled(false);
 
-        // Call API to fetch P2P data
-        fetchP2PData(1); // Pass the lender_id here, e.g., 1
+        fetchAllLenders();
 
         return view;
     }
 
-    private void fetchP2PData(int lenderId) {
+    private void fetchAllLenders() {
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+        emptyView.setVisibility(View.GONE);
+
         ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
 
-        Map<String, Integer> body = new HashMap<>();
-        body.put("lender_id", lenderId);
-
-        Call<P2PResponse> call = apiService.getP2PData(body);
+        Call<P2PResponse> call = apiService.getLendersWithTerms();
         call.enqueue(new Callback<P2PResponse>() {
             @Override
             public void onResponse(Call<P2PResponse> call, Response<P2PResponse> response) {
-                if (response.isSuccessful()) {
-                    // Log the raw response body
-                    Log.d("P2PFragment", "Raw response: " + response.body().toString());
+                progressBar.setVisibility(View.GONE);
 
-                    if (response.body() != null && response.body().isSuccess()) {
-                        companyList = response.body().getCompanies(); // Get actual list of companies
-                        P2PAdapter adapter = new P2PAdapter(getContext(), companyList, item -> {
-                            Toast.makeText(getContext(), "Clicked: " + item.getName(), Toast.LENGTH_SHORT).show();
-                        });
+                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+                    companyList = response.body().getCompanies();
+
+                    if (companyList != null && !companyList.isEmpty()) {
+                        recyclerView.setVisibility(View.VISIBLE);
+                        emptyView.setVisibility(View.GONE);
+
+                        P2PAdapter adapter = new P2PAdapter(getContext(), companyList);
                         recyclerView.setAdapter(adapter);
                     } else {
-                        Log.e("P2PFragment", "Failed to load data. Response unsuccessful or no data found.");
-                        Toast.makeText(getContext(), "Failed to load data", Toast.LENGTH_SHORT).show();
+                        recyclerView.setVisibility(View.GONE);
+                        emptyView.setVisibility(View.VISIBLE);
+                        emptyView.setText("No lenders found.");
                     }
                 } else {
-                    Log.e("P2PFragment", "API request failed: " + response.code());
+                    Toast.makeText(getContext(), "Failed to load data", Toast.LENGTH_SHORT).show();
+                    emptyView.setVisibility(View.VISIBLE);
+                    emptyView.setText("Failed to load data.");
                 }
             }
 
-
             @Override
             public void onFailure(Call<P2PResponse> call, Throwable t) {
-                // Log error
-                Log.e("P2PFragment", "Error fetching P2P data: " + t.getMessage());
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                emptyView.setVisibility(View.VISIBLE);
+                emptyView.setText("Connection error. Try again later.");
             }
         });
     }

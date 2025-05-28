@@ -102,14 +102,14 @@ public class TransactionDetailActivity extends AppCompatActivity {
     private List<Payment> mapRepaymentsToPayments(List<Repayment> repayments) {
         List<Payment> paymentList = new ArrayList<>();
         for (Repayment repayment : repayments) {
-            // Map Repayment fields to Payment
-            String ref = repayment.getLoanId(); // Or any appropriate mapping
-            String date = "Unknown"; // You can map actual date if available
-            String amount = repayment.getAmount();
+            String referenceCode = repayment.getReferenceCode(); // For transactionId
+            String date = repayment.getDate();                   // For paymentDate
+            String amount = repayment.getAmount();               // For paymentAmount
 
-            Payment payment = new Payment(ref, date, amount);
+            Payment payment = new Payment(referenceCode, date, amount);
             paymentList.add(payment);
         }
         return paymentList;
     }
+
 }

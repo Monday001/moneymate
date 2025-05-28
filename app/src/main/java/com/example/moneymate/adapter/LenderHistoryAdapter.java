@@ -21,11 +21,17 @@ import java.util.List;
 public class LenderHistoryAdapter extends RecyclerView.Adapter<LenderHistoryAdapter.ViewHolder> {
 
     private final Context context;
-    private final List<LenderHistory> lenderHistoryList;
+    private List<LenderHistory> lenderHistoryList;
 
     public LenderHistoryAdapter(Context context, List<LenderHistory> lenderHistoryList) {
         this.context = context;
         this.lenderHistoryList = lenderHistoryList;
+    }
+
+    // Method to update the lender history list
+    public void setHistoryList(List<LenderHistory> newList) {
+        this.lenderHistoryList = newList;
+        notifyDataSetChanged();  // Notify adapter that data has changed
     }
 
     @NonNull
@@ -59,7 +65,7 @@ public class LenderHistoryAdapter extends RecyclerView.Adapter<LenderHistoryAdap
 
     @Override
     public int getItemCount() {
-        return lenderHistoryList.size();
+        return lenderHistoryList != null ? lenderHistoryList.size() : 0;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

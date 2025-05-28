@@ -13,24 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moneymate.CompanyTermsActivity;
 import com.example.moneymate.R;
-import com.example.moneymate.models.CompanyItem;
+import com.example.moneymate.models.P2PItem;
 
 import java.util.List;
 
 public class P2PAdapter extends RecyclerView.Adapter<P2PAdapter.P2PViewHolder> {
 
-    private List<CompanyItem> companyList;
+    private List<P2PItem> p2pList;
     private Context context;
-    private OnItemClickListener listener;
 
-    public interface OnItemClickListener {
-        void onViewClick(CompanyItem item);
-    }
-
-    public P2PAdapter(Context context, List<CompanyItem> companyList, OnItemClickListener listener) {
+    public P2PAdapter(Context context, List<P2PItem> p2pList) {
         this.context = context;
-        this.companyList = companyList;
-        this.listener = listener;
+        this.p2pList = p2pList;
     }
 
     @NonNull
@@ -42,23 +36,23 @@ public class P2PAdapter extends RecyclerView.Adapter<P2PAdapter.P2PViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull P2PViewHolder holder, int position) {
-        CompanyItem item = companyList.get(position);
+        P2PItem item = p2pList.get(position);
         holder.companyName.setText(item.getName());
         holder.minAmount.setText("From " + item.getAmount());
 
         holder.viewButton.setOnClickListener(v -> {
             Intent intent = new Intent(context, CompanyTermsActivity.class);
             intent.putExtra("company_name", item.getName());
-            intent.putExtra("overview", "Offering Loans from " + item.getAmount() + " @ 1.8%");
-            intent.putExtra("terms", "1. Offering Loans from 10,000 @ 1.8%\n2. 2 months grace period\n3. 1.3% interest on loans above 50,000\n4. Flexible repayment plan\n5. Grow your limit on every complete transaction.");
+            intent.putExtra("overview", item.getOverview());
+            intent.putExtra("terms", item.getTerms());
+            intent.putExtra("lender_id", item.getLenderId());
             context.startActivity(intent);
         });
     }
 
-
     @Override
     public int getItemCount() {
-        return companyList.size();
+        return p2pList.size();
     }
 
     public static class P2PViewHolder extends RecyclerView.ViewHolder {
@@ -73,4 +67,3 @@ public class P2PAdapter extends RecyclerView.Adapter<P2PAdapter.P2PViewHolder> {
         }
     }
 }
-

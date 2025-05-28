@@ -1,10 +1,16 @@
 package com.example.moneymate;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.util.Log;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,9 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.moneymate.models.GenericResponse;
-import com.example.moneymate.network.ApiService;
 import com.example.moneymate.network.ApiClient;
-
+import com.example.moneymate.network.ApiService;
 
 import org.json.JSONObject;
 
@@ -39,11 +44,40 @@ public class LoanApplicationActivity extends AppCompatActivity {
 
     private EditText idFrontEditText, idBackEditText;
     private Uri idFrontUri, idBackUri;
+    private int lenderId, borrowerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loan_application);
+
+        lenderId = getIntent().getIntExtra("lender_id", -1);
+
+        SharedPreferences preferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String borrowerIdStr = preferences.getString("borrower_id", null);
+
+        if (borrowerIdStr != null) {
+            try {
+                borrowerId = Integer.parseInt(borrowerIdStr);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Invalid borrower ID format", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+        } else {
+            Toast.makeText(this, "Borrower ID missing", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        if (lenderId == -1 || borrowerId == -1) {
+            Toast.makeText(this, "Missing lender or borrower ID", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        this.borrowerId = borrowerId;
 
         idFrontEditText = findViewById(R.id.idFrontEditText);
         idBackEditText = findViewById(R.id.idBackEditText);
@@ -57,7 +91,7 @@ public class LoanApplicationActivity extends AppCompatActivity {
 
     private void openFileChooser(int requestCode) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*"); // or "application/pdf" if accepting PDFs too
+        intent.setType("image/*");
         startActivityForResult(Intent.createChooser(intent, "Select ID Image"), requestCode);
     }
 
@@ -81,7 +115,7 @@ public class LoanApplicationActivity extends AppCompatActivity {
 
     private String getFileNameFromUri(Uri uri) {
         String result = null;
-        if (uri.getScheme().equals("content")) {
+        if ("content".equals(uri.getScheme())) {
             try (Cursor cursor = getContentResolver().query(uri, null, null, null, null)) {
                 if (cursor != null && cursor.moveToFirst()) {
                     int columnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
@@ -91,6 +125,7 @@ public class LoanApplicationActivity extends AppCompatActivity {
                 }
             }
         }
+
         if (result == null) {
             result = uri.getPath();
             int cut = result.lastIndexOf('/');
@@ -100,8 +135,6 @@ public class LoanApplicationActivity extends AppCompatActivity {
         }
         return result;
     }
-
-
 
     private void submitApplication() {
         String fullName = ((EditText) findViewById(R.id.fullNameEditText)).getText().toString().trim();
@@ -116,9 +149,9 @@ public class LoanApplicationActivity extends AppCompatActivity {
         }
 
         try {
-            // Build loan data JSON
             JSONObject json = new JSONObject();
-            json.put("borrower_id", 5); // Replace with actual borrower ID
+            json.put("lender_id", lenderId);
+            json.put("borrower_id", borrowerId);
             json.put("amount", amount);
             json.put("purpose", purpose);
 
@@ -126,11 +159,9 @@ public class LoanApplicationActivity extends AppCompatActivity {
                     MediaType.parse("application/json"), json.toString()
             );
 
-            // Prepare file parts
             MultipartBody.Part idFrontPart = prepareFilePart("id_front", idFrontUri);
             MultipartBody.Part idBackPart = prepareFilePart("id_back", idBackUri);
 
-            // Call API
             ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
             Call<GenericResponse> call = apiService.applyForLoan(loanDataBody, idFrontPart, idBackPart);
 
@@ -138,19 +169,25 @@ public class LoanApplicationActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<GenericResponse> call, Response<GenericResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        Toast.makeText(LoanApplicationActivity.this,
-                                response.body().getMessage(), Toast.LENGTH_LONG).show();
+                        showSuccessDialog();
                     } else {
-                        Toast.makeText(LoanApplicationActivity.this,
-                                "Submission failed", Toast.LENGTH_SHORT).show();
+                        String errorMessage = "Submission failed. Please try again.";
+                        try {
+                            if (response.errorBody() != null) {
+                                errorMessage = response.errorBody().string();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        showFailureDialog(errorMessage);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<GenericResponse> call, Throwable t) {
-                    Toast.makeText(LoanApplicationActivity.this,
-                            "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    showFailureDialog("Network error: " + t.getMessage());
                 }
+
             });
 
         } catch (Exception e) {
@@ -159,12 +196,46 @@ public class LoanApplicationActivity extends AppCompatActivity {
         }
     }
 
+    private void showSuccessDialog() {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_dialog_success); // Ensure this layout is created
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        Button okButton = dialog.findViewById(R.id.btn_ok);
+        okButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            Intent intent = new Intent(this, P2PFragment.class); // <-- Replace with your actual class
+            startActivity(intent);
+            finish();
+        });
+
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    private void showFailureDialog(String message) {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_dialog_failure);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        Button retryButton = dialog.findViewById(R.id.retryButton);
+        retryButton.setOnClickListener(v -> dialog.dismiss());
+
+        // Set error message
+        EditText messageTextView = dialog.findViewById(R.id.failureMessageTextView);
+        messageTextView.setText(message);
+
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+
     private MultipartBody.Part prepareFilePart(String partName, Uri uri) {
         File file = new File(getFilePathFromUri(uri));
         RequestBody requestBody = RequestBody.create(
-                MediaType.parse(getContentResolver().getType(uri)),
-                file
-        );
+                MediaType.parse(getContentResolver().getType(uri)), file);
         return MultipartBody.Part.createFormData(partName, file.getName(), requestBody);
     }
 
@@ -185,8 +256,4 @@ public class LoanApplicationActivity extends AppCompatActivity {
 
         return tempFile.getAbsolutePath();
     }
-
-
 }
-
-

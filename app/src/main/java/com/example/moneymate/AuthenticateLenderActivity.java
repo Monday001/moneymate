@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.moneymate.models.LenderLoginRequest;
+import com.example.moneymate.models.LoginRequest;
 import com.example.moneymate.models.LoginResponse;
 import com.example.moneymate.network.ApiClient;
 import com.example.moneymate.network.ApiService;
@@ -56,9 +56,9 @@ public class AuthenticateLenderActivity extends AppCompatActivity {
 
     private void authenticateLender(String privateKey, String password) {
         ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
-        LenderLoginRequest loginRequest = new LenderLoginRequest(privateKey, password);
+        LoginRequest loginRequest = new LoginRequest(null, password, privateKey);
 
-        Call<LoginResponse> call = apiService.authenticateLender(loginRequest);
+        Call<LoginResponse> call = apiService.loginUser(loginRequest);
 
         call.enqueue(new Callback<LoginResponse>() {
             @Override
