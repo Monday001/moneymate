@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/success_dialog_bg"
+    android:gravity="center"
+    android:elevation="4dp">
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/error_circle"
+        android:layout_gravity="center" />
+
+    <EditText
+        android:id="@+id/editDenialReason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edittext_border"
+        android:padding="12dp"
+        android:hint="Enter reason for denial"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:maxLines="5"
+        android:gravity="top|start" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/btnCancelDenial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cornerRadius="15dp"
+            android:backgroundTint="#F7931E"
+            android:text="Cancel" />
+
+        <Button
+            android:id="@+id/btnSubmitDenial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cornerRadius="15dp"
+            android:backgroundTint="#F44336"
+            android:text="Submit"
+            android:layout_marginStart="12dp" />
+    </LinearLayout>
+</LinearLayout>

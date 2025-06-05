@@ -10,9 +10,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -143,8 +145,17 @@ public class LoanApplicationActivity extends AppCompatActivity {
         String amount = ((EditText) findViewById(R.id.amountEditText)).getText().toString().trim();
         String purpose = ((EditText) findViewById(R.id.purposeEditText)).getText().toString().trim();
 
+        TextView phoneErrorTextView = findViewById(R.id.phoneErrorTextView);
+        phoneErrorTextView.setVisibility(View.GONE);
+
         if (idFrontUri == null || idBackUri == null) {
             Toast.makeText(this, "Please upload both ID images", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (phone.isEmpty()) {
+            phoneErrorTextView.setText("Phone number is required");
+            phoneErrorTextView.setVisibility(View.VISIBLE);
             return;
         }
 
@@ -154,6 +165,10 @@ public class LoanApplicationActivity extends AppCompatActivity {
             json.put("borrower_id", borrowerId);
             json.put("amount", amount);
             json.put("purpose", purpose);
+            json.put("full_name", fullName);
+            json.put("email_address", email);
+            json.put("phone_number", phone);
+
 
             RequestBody loanDataBody = RequestBody.create(
                     MediaType.parse("application/json"), json.toString()
@@ -175,12 +190,21 @@ public class LoanApplicationActivity extends AppCompatActivity {
                         try {
                             if (response.errorBody() != null) {
                                 errorMessage = response.errorBody().string();
+
+                                // Check if it's the user-does-not-exist error
+                                if (errorMessage.contains("user does not exist")) {
+                                    phoneErrorTextView.setText("User does not exist, check phone number");
+                                    phoneErrorTextView.setVisibility(View.VISIBLE);
+                                    return; // don't show dialog
+                                }
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+
                         showFailureDialog(errorMessage);
                     }
+
                 }
 
                 @Override
@@ -205,7 +229,8 @@ public class LoanApplicationActivity extends AppCompatActivity {
         Button okButton = dialog.findViewById(R.id.btn_ok);
         okButton.setOnClickListener(v -> {
             dialog.dismiss();
-            Intent intent = new Intent(this, P2PFragment.class); // <-- Replace with your actual class
+            Intent intent = new Intent(LoanApplicationActivity.this, BorrowerHomeActivity.class);
+            intent.putExtra("navigate_to", "p2p");
             startActivity(intent);
             finish();
         });
@@ -224,7 +249,7 @@ public class LoanApplicationActivity extends AppCompatActivity {
         retryButton.setOnClickListener(v -> dialog.dismiss());
 
         // Set error message
-        EditText messageTextView = dialog.findViewById(R.id.failureMessageTextView);
+        TextView messageTextView = dialog.findViewById(R.id.failureMessageTextView);
         messageTextView.setText(message);
 
         dialog.setCancelable(false);

@@ -1,7 +1,7 @@
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#E0E0E0"
     android:fillViewport="true">
 
@@ -57,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+
         <Button
             android:id="@+id/repay_button"
             android:layout_width="wrap_content"
@@ -64,7 +65,8 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="48dp"
-            android:background="@drawable/button_rounded"
+            android:backgroundTint="#F7931E"
+            app:cornerRadius="15dp"
             android:text="REPAY"
             android:textColor="#FFFFFF" />
     </RelativeLayout>
@@ -74,8 +76,20 @@
         android:layout_height="wrap_content"
         android:text="History"
         android:textSize="16sp"
+        android:textColor="@android:color/black"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:id="@+id/no_loans_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You currently have no loans"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="24dp"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal" />
 
     <LinearLayout
         android:layout_width="match_parent"

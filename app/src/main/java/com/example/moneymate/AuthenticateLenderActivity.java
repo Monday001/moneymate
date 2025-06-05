@@ -69,20 +69,28 @@ public class AuthenticateLenderActivity extends AppCompatActivity {
                         Toast.makeText(AuthenticateLenderActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
 
                         try {
-                            int lenderId = Integer.parseInt(loginResponse.getLenderId());
+                            String lenderId = loginResponse.getLenderId();
+                            String username = loginResponse.getUsername();
+                            String userType = loginResponse.getUserType();
 
-                            // Save lender_id in SharedPreferences
-                            SharedPreferences prefs = getSharedPreferences("moneymate_prefs", MODE_PRIVATE);
-                            prefs.edit().putInt("lender_id", lenderId).apply();
+                            // Save to SharedPreferences (same as SigninActivity)
+                            SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString("username", username);
+                            editor.putString("user_type", userType);
+                            editor.putString("lender_id", lenderId);
+                            editor.apply();
 
-                            // Redirect to home activity
+                            Log.d("LENDER_LOGIN", "Saved lender_id: " + lenderId);
+
+                            // Go to LenderHome
                             Intent intent = new Intent(AuthenticateLenderActivity.this, LenderHomeActivity.class);
                             startActivity(intent);
                             finish();
 
-                        } catch (NumberFormatException e) {
-                            Toast.makeText(AuthenticateLenderActivity.this, "Invalid lender ID format", Toast.LENGTH_SHORT).show();
-                            Log.e("LENDER_ID_ERROR", "Failed to parse lender ID", e);
+                        } catch (Exception e) {
+                            Toast.makeText(AuthenticateLenderActivity.this, "Failed to save login data", Toast.LENGTH_SHORT).show();
+                            Log.e("LENDER_ID_ERROR", "Error parsing login response", e);
                         }
 
                     } else {
@@ -102,9 +110,6 @@ public class AuthenticateLenderActivity extends AppCompatActivity {
                 }
             }
 
-
-
-
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Toast.makeText(AuthenticateLenderActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_LONG).show();
@@ -112,4 +117,4 @@ public class AuthenticateLenderActivity extends AppCompatActivity {
             }
         });
     }
-    }
+}

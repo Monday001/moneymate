@@ -34,6 +34,17 @@
             android:layout_centerVertical="true" />
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/no_loans_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No loan applications available."
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:visibility="gone"
+        android:layout_marginTop="16dp" />
+
+
     <!-- Scrollable RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lender_loans_recycler_view"

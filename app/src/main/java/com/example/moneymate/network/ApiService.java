@@ -1,17 +1,22 @@
 package com.example.moneymate.network;
 
+import com.example.moneymate.models.BorrowerLoanResponse;
 import com.example.moneymate.models.GenericResponse;
+import com.example.moneymate.models.LatestLoanResponse;
 import com.example.moneymate.models.Lender;
 import com.example.moneymate.models.LenderHistoryResponse;
 import com.example.moneymate.models.LenderIdResponse;
 import com.example.moneymate.models.LenderLoginRequest;
 import com.example.moneymate.models.LenderTermsRequest;
 import com.example.moneymate.models.Loan;
+import com.example.moneymate.models.LoanApplicationResponse;
 import com.example.moneymate.models.LoanResponse;
 import com.example.moneymate.models.LoanStatusResponse;
 import com.example.moneymate.models.LoginRequest;
 import com.example.moneymate.models.LoginResponse;
+import com.example.moneymate.models.Notification;
 import com.example.moneymate.models.P2PResponse;
+import com.example.moneymate.models.PhoneResponse;
 import com.example.moneymate.models.Repayment;
 import com.example.moneymate.models.RepaymentResponse;
 import com.example.moneymate.models.ResetPasswordRequest;
@@ -96,12 +101,53 @@ public interface ApiService {
     @GET("get_lender_id.php")
     Call<LenderIdResponse> getLenderIdByEmail(@Query("email") String email);
 
+    @GET("getLoanStatus.php")
+    Call<LoanStatusResponse> getLoanStatus(@Query("lender_id") int lenderId);
 
     @GET("getLenderHistory.php")
     Call<LenderHistoryResponse> getLenderHistory(@Query("lender_id") int lenderId);
 
-    @GET("your-api-endpoint.php")
-    Call<LoanStatusResponse> getLoanStatus(@Query("lender_id") int lenderId);
+        @GET("get_loan_applications.php")
+        Call<LoanResponse> getLoanApplications(@Query("lender_id") int lenderId);
+
+        @GET("get_borrower_loans.php")
+        Call<BorrowerLoanResponse> getBorrowerLoans(@Query("borrower_id") int borrowerId);
+
+
+    @FormUrlEncoded
+    @POST("disburse_loan.php")
+    Call<ResponseBody> disburseLoan(
+            @Field("loan_id") int loanId,
+            @Field("amount") String amount
+    );
+
+    @FormUrlEncoded
+    @POST("deny_loan.php")
+    Call<ResponseBody> denyLoan(
+            @Field("loan_id") int loanId,
+            @Field("reason") String reason
+    );
+
+    @GET("get_notifications.php")
+    Call<List<Notification>> getNotifications(@Query("borrower_id") int borrowerId);
+
+
+    @GET("getLatestDisbursedLoan.php")
+    Call<LatestLoanResponse> getLatestDisbursedLoan(@Query("phone_number") String phoneNumber);
+
+    @GET("get_borrower_phone.php")
+    Call<PhoneResponse> getBorrowerPhone(@Query("borrower_id") int borrowerId);
+
+    @FormUrlEncoded
+    @POST("repayment.php")
+    Call<Void> makeRepayment(
+            @Field("loan_id") int loanId,
+            @Field("borrower_id") int borrowerId,
+            @Field("amount_paid") double amountPaid
+    );
+
+
+
 }
 
 

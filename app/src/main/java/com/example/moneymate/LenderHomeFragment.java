@@ -34,8 +34,8 @@ public class LenderHomeFragment extends Fragment {
 
     private LenderHistoryAdapter lenderHistoryAdapter;
 
-    private TextView userTitle, approvedTitle, deniedTitle, pendingTitle;
-    private View userLenderView;  // This will reference your logout trigger View
+    private TextView userTotal, approvedTotal, deniedTotal, pendingTotal;
+    private View userLenderView;  // This will reference logout trigger View
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,10 +49,10 @@ public class LenderHomeFragment extends Fragment {
         recyclerView.setAdapter(lenderHistoryAdapter);
 
         // Status count TextViews
-        userTitle = rootView.findViewById(R.id.userTitle);
-        approvedTitle = rootView.findViewById(R.id.approvedTitle);
-        deniedTitle = rootView.findViewById(R.id.deniedTitle);
-        pendingTitle = rootView.findViewById(R.id.pendingTitle);
+        userTotal = rootView.findViewById(R.id.userTotal);
+        approvedTotal = rootView.findViewById(R.id.approvedTotal);
+        deniedTotal = rootView.findViewById(R.id.deniedTotal);
+        pendingTotal = rootView.findViewById(R.id.pendingTotal);
 
         // Find the 'userLender' view by ID
         userLenderView = rootView.findViewById(R.id.userLender);
@@ -67,14 +67,27 @@ public class LenderHomeFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        int lenderId = 1; // Replace with actual logic (e.g., SharedPreferences)
+        // Get lenderId from SharedPreferences
+        SharedPreferences prefs = getActivity().getSharedPreferences("UserPrefs", getContext().MODE_PRIVATE);
+        String lenderIdStr = prefs.getString("lender_id", null);
 
-        // Fetch status counts
-        fetchStatusCounts(lenderId);
+        if (lenderIdStr != null) {
+            try {
+                int lenderId = Integer.parseInt(lenderIdStr);
 
-        // Fetch history
-        fetchLenderHistory(lenderId);
+                // Fetch status counts
+                fetchStatusCounts(lenderId);
+
+                // Fetch history
+                fetchLenderHistory(lenderId);
+            } catch (NumberFormatException e) {
+                Toast.makeText(getContext(), "Invalid lender ID format", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(getContext(), "Lender ID not found", Toast.LENGTH_SHORT).show();
+        }
     }
+
 
     private void fetchStatusCounts(int lenderId) {
         ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
@@ -83,10 +96,10 @@ public class LenderHomeFragment extends Fragment {
             public void onResponse(Call<LoanStatusResponse> call, Response<LoanStatusResponse> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
                     LoanStatusResponse data = response.body();
-                    userTitle.setText("Users " + data.getUser_count());
-                    approvedTitle.setText("Approved " + data.getLoan_status().getApproved_count());
-                    deniedTitle.setText("Denied " + data.getLoan_status().getDenied_count());
-                    pendingTitle.setText("Pending " + data.getLoan_status().getPending_count());
+                    userTotal.setText(String.valueOf(data.getUser_count()));
+                    approvedTotal.setText(String.valueOf(data.getLoan_status().getApproved_count()));
+                    deniedTotal.setText(String.valueOf(data.getLoan_status().getDenied_count()));
+                    pendingTotal.setText(String.valueOf(data.getLoan_status().getPending_count()));
                 } else {
                     Toast.makeText(getContext(), "Failed to fetch status counts", Toast.LENGTH_SHORT).show();
                 }

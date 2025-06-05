@@ -5,27 +5,34 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.moneymate.adapter.BorrowerLoanAdapter;
 import com.example.moneymate.adapter.LenderHistoryAdapter;
 import com.example.moneymate.databinding.FragmentBorrowerHomeBinding;
+import com.example.moneymate.models.BorrowerLoan;
+import com.example.moneymate.models.BorrowerLoanResponse;
+import com.example.moneymate.models.LatestLoanResponse;
 import com.example.moneymate.models.LenderHistory;
-import com.example.moneymate.models.LoanApplication;
-import com.example.moneymate.models.LoanResponse;
+import com.example.moneymate.models.Loan;
+import com.example.moneymate.models.Payment;
+import com.example.moneymate.models.PhoneResponse;
 import com.example.moneymate.network.ApiClient;
 import com.example.moneymate.network.ApiService;
 
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,10 +42,12 @@ public class BorrowerHomeFragment extends Fragment {
 
     private FragmentBorrowerHomeBinding binding;
     private RecyclerView recyclerView;
-    private TextView nameTextView, loanBalanceTextView;
+    private TextView nameTextView, loanBalanceTextView, noLoansTextView;
+    private View userBorrowerView;
     private LenderHistoryAdapter adapter;
     private String username;
-    private View userBorrowerView;  // Reference to the userBorrower view
+
+    private Loan latestLoan;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,96 +62,258 @@ public class BorrowerHomeFragment extends Fragment {
         nameTextView = view.findViewById(R.id.borrower_name);
         loanBalanceTextView = view.findViewById(R.id.loan_balance);
         recyclerView = view.findViewById(R.id.borrower_history_recycler_view);
-
-        // Find the userBorrower view by its ID
+        noLoansTextView = view.findViewById(R.id.no_loans_text);
         userBorrowerView = view.findViewById(R.id.userBorrower);
+        Button repayButton = view.findViewById(R.id.repay_button);
 
-        // Set the click listener for the userBorrower view to show the logout dialog
-        userBorrowerView.setOnClickListener(v -> showLogoutDialog());
+        repayButton.setOnClickListener(v -> showRepaymentDialog());
 
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("userPrefs", Context.MODE_PRIVATE);
-        username = sharedPreferences.getString("username", "Default User");
+        SharedPreferences prefs = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        username = prefs.getString("username", "User");
         nameTextView.setText("Hi " + username);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setNestedScrollingEnabled(false);
 
+        userBorrowerView.setOnClickListener(v -> showLogoutDialog());
+
+        fetchLatestDisbursedLoan();
         fetchLoanHistory();
     }
 
     private void fetchLoanHistory() {
+        SharedPreferences prefs = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        int borrowerId = -1;
+        try {
+            String borrowerIdString = prefs.getString("borrower_id", "-1");
+            borrowerId = Integer.parseInt(borrowerIdString);
+        } catch (NumberFormatException e) {
+            Log.e("BorrowerHomeFragment", "User id not found", e);
+        }
+
+        if (borrowerId == -1) {
+            showError("Invalid borrower ID.");
+            return;
+        }
+
         ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
 
-        apiService.getLoanApplications().enqueue(new Callback<LoanResponse>() {
+        apiService.getBorrowerLoans(borrowerId).enqueue(new Callback<BorrowerLoanResponse>() {
             @Override
-            public void onResponse(Call<LoanResponse> call, Response<LoanResponse> response) {
-                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
-                    List<LoanApplication> loanApps = response.body().getApplications();
-                    List<LenderHistory> historyList = new ArrayList<>();
+            public void onResponse(Call<BorrowerLoanResponse> call, Response<BorrowerLoanResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().isStatus()) {
+                    List<BorrowerLoan> loanList = response.body().getLoans();
 
-                    double totalBalance = 0;
-
-                    for (LoanApplication loanApp : loanApps) {
-                        // Only include loans that are not repaid
-                        if (!"repaid".equalsIgnoreCase(loanApp.getStatus())) {
-                            totalBalance += Double.parseDouble(loanApp.getAmount());
-
-                            historyList.add(new LenderHistory(
-                                    username,
-                                    String.valueOf(loanApp.getAmount()),
-                                    loanApp.getStatus(),
-                                    loanApp.getDateApplied(),
-                                    "N/A",
-                                    "N/A",
-                                    "N/A",
-                                    "N/A",
-                                    loanApp.getPurpose(),
-                                    null
-                            ));
-                        }
+                    if (loanList != null && !loanList.isEmpty()) {
+                        BorrowerLoanAdapter adapter = new BorrowerLoanAdapter(loanList);
+                        recyclerView.setAdapter(adapter);
+                        noLoansTextView.setVisibility(View.GONE);
+                    } else {
+                        noLoansTextView.setVisibility(View.VISIBLE);
                     }
-
-                    loanBalanceTextView.setText("Kshs. " + String.format("%,.2f", totalBalance));
-                    adapter = new LenderHistoryAdapter(requireContext(), historyList);
-                    recyclerView.setAdapter(adapter);
                 } else {
-                    Log.e("LoanFetch", "Response unsuccessful or body null");
+                    Toast.makeText(getContext(), "No loans found", Toast.LENGTH_SHORT).show();
+                    noLoansTextView.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
-            public void onFailure(Call<LoanResponse> call, Throwable t) {
-                Log.e("LoanFetch", "API call failed", t);
+            public void onFailure(Call<BorrowerLoanResponse> call, Throwable t) {
+                Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                noLoansTextView.setVisibility(View.VISIBLE);
             }
         });
     }
 
-    // Method to show the logout confirmation dialog
+    private void fetchLatestDisbursedLoan() {
+        SharedPreferences prefs = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        String borrowerIdStr = prefs.getString("borrower_id", "-1");
+        int borrowerId = -1;
+        try {
+            borrowerId = Integer.parseInt(borrowerIdStr);
+        } catch (NumberFormatException e) {
+            Log.e("BorrowerHomeFragment", "Invalid borrower ID", e);
+        }
+
+        if (borrowerId == -1) {
+            loanBalanceTextView.setText("Kshs. 0.00");
+            return;
+        }
+
+        ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
+
+        apiService.getBorrowerPhone(borrowerId).enqueue(new Callback<PhoneResponse>() {
+            @Override
+            public void onResponse(Call<PhoneResponse> call, Response<PhoneResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().isStatus()) {
+                    String phoneNumber = response.body().getPhone_number();
+                    getLatestDisbursedLoan(phoneNumber);
+                } else {
+                    loanBalanceTextView.setText("Kshs. 0.00");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PhoneResponse> call, Throwable t) {
+                loanBalanceTextView.setText("Kshs. 0.00");
+            }
+        });
+    }
+
+    private void getLatestDisbursedLoan(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.isEmpty()) {
+            loanBalanceTextView.setText("Kshs. 0.00");
+            return;
+        }
+
+        ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
+        apiService.getLatestDisbursedLoan(phoneNumber).enqueue(new Callback<LatestLoanResponse>() {
+            @Override
+            public void onResponse(Call<LatestLoanResponse> call, Response<LatestLoanResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+                    latestLoan = response.body().getLoan();
+                    updateLoanBalance(latestLoan);
+                } else {
+                    loanBalanceTextView.setText("Kshs. 0.00");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LatestLoanResponse> call, Throwable t) {
+                loanBalanceTextView.setText("Kshs. 0.00");
+            }
+        });
+    }
+
+    private void updateLoanBalance(Loan latestDisbursedLoan) {
+        if (latestDisbursedLoan != null) {
+            try {
+                double disbursedAmount = Double.parseDouble(latestDisbursedLoan.getDisbursed_amount());
+                double totalRepayment = 0;
+
+                if (latestDisbursedLoan.getPaymentHistory() != null) {
+                    for (Payment payment : latestDisbursedLoan.getPaymentHistory()) {
+                        totalRepayment += Double.parseDouble(payment.getAmount());
+                    }
+                }
+
+                double balance = Math.max(disbursedAmount - totalRepayment, 0);
+                loanBalanceTextView.setText("Kshs. " + String.format(Locale.US, "%,.2f", balance));
+            } catch (NumberFormatException e) {
+                Log.e("LoanBalance", "Invalid number format", e);
+                loanBalanceTextView.setText("Kshs. 0.00");
+            }
+        } else {
+            loanBalanceTextView.setText("Kshs. 0.00");
+        }
+    }
+
+    private void showRepaymentDialog() {
+        final android.widget.EditText input = new android.widget.EditText(getContext());
+        input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        input.setHint("Enter repayment amount");
+
+        new android.app.AlertDialog.Builder(getContext())
+                .setTitle("Make a Repayment")
+                .setView(input)
+                .setPositiveButton("Submit", (dialog, which) -> {
+                    String enteredAmount = input.getText().toString().trim();
+                    if (!enteredAmount.isEmpty()) {
+                        try {
+                            double amount = Double.parseDouble(enteredAmount);
+                            if (amount > 0) {
+                                makeRepayment(amount);
+                            } else {
+                                Toast.makeText(getContext(), "Enter a valid amount", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(getContext(), "Invalid amount entered", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Amount cannot be empty", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void makeRepayment(double amount) {
+        SharedPreferences prefs = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        int borrowerId = -1;
+        try {
+            borrowerId = Integer.parseInt(prefs.getString("borrower_id", "-1"));
+        } catch (NumberFormatException e) {
+            Log.e("BorrowerHomeFragment", "Invalid borrower ID", e);
+        }
+
+        if (borrowerId == -1) {
+            Toast.makeText(getContext(), "User not found", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (latestLoan == null) {
+            Toast.makeText(getContext(), "No active loan to repay", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int loanId = latestLoan.getId();
+
+        ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
+        Call<Void> call = apiService.makeRepayment(loanId, borrowerId, amount);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Repayment successful", Toast.LENGTH_SHORT).show();
+                    fetchLatestDisbursedLoan();
+                    fetchLoanHistory();
+                } else {
+                    Toast.makeText(getContext(), "Repayment failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getContext(), "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateLoanHistoryUI(List<LenderHistory> historyList) {
+        if (historyList != null && !historyList.isEmpty()) {
+            noLoansTextView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            adapter = new LenderHistoryAdapter(requireContext(), historyList);
+            recyclerView.setAdapter(adapter);
+        } else {
+            recyclerView.setVisibility(View.GONE);
+            noLoansTextView.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void showLogoutDialog() {
         new android.app.AlertDialog.Builder(getContext())
                 .setTitle("Log Out")
                 .setMessage("Are you sure you want to log out?")
-                .setCancelable(false)  // The dialog cannot be dismissed by tapping outside
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        logoutUser(); // Perform logout if the user confirms
-                    }
-                })
-                .setNegativeButton("No", null)  // Dismiss dialog if user taps "No"
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, which) -> logoutUser())
+                .setNegativeButton("No", null)
                 .show();
     }
 
-    // Method to handle the logout process
     private void logoutUser() {
-        // Clear shared preferences to log out the user
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("userPrefs", Context.MODE_PRIVATE);
-        sharedPreferences.edit().clear().apply();  // Clear all data from SharedPreferences
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        sharedPreferences.edit().clear().apply();
 
+        startActivity(new Intent(getActivity(), MainActivity.class));
+        requireActivity().finish();
+    }
 
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+    private void showError(String message) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show();
+        recyclerView.setVisibility(View.GONE);
+        noLoansTextView.setVisibility(View.VISIBLE);
     }
 
     @Override

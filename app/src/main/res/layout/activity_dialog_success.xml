@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#F7931E"
-        app:cornerRadius="8dp"
+        app:cornerRadius="15dp"
         android:clickable="true"
         android:elevation="4dp"
         android:focusable="true"

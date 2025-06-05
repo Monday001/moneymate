@@ -9,115 +9,121 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fillViewport="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="48dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fill the form below with the correct details"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- Full Name -->
-        <EditText
-            android:id="@+id/fullNameEditText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full Name"
-            android:background="@drawable/edittext_border"
-            android:padding="12dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="12dp"/>
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="32dp">
 
-        <!-- Phone number -->
-        <EditText
-            android:id="@+id/phoneEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phone number"
-            android:inputType="phone"
-            android:background="@drawable/edittext_border"
-            android:padding="12dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="12dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fill the form below with the correct details"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp" />
 
-        <!-- Email Address -->
-        <EditText
-            android:id="@+id/emailEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email Address"
-            android:inputType="textEmailAddress"
-            android:background="@drawable/edittext_border"
-            android:padding="12dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="12dp"/>
+            <!-- Full Name -->
+            <EditText
+                android:id="@+id/fullNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Full Name"
+                android:background="@drawable/edittext_border"
+                android:padding="12dp"
+                android:layout_marginTop="24dp" />
 
-        <!-- ID Front -->
-        <EditText
-            android:id="@+id/idFrontEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="ID Front"
-            android:focusable="false"
-            android:clickable="true"
-            android:background="@drawable/edittext_border"
-            android:drawableEnd="@drawable/upload"
-            android:drawableRight="@drawable/upload"
-            android:padding="12dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="12dp"/>
+            <!-- Phone Number -->
+            <EditText
+                android:id="@+id/phoneEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone number"
+                android:inputType="phone"
+                android:background="@drawable/edittext_border"
+                android:padding="12dp"
+                android:layout_marginTop="16dp" />
 
-        <!-- ID Back -->
-        <EditText
-            android:id="@+id/idBackEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="ID Back"
-            android:focusable="false"
-            android:clickable="true"
-            android:background="@drawable/edittext_border"
-            android:drawableEnd="@drawable/upload"
-            android:drawableRight="@drawable/upload"
-            android:padding="12dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="12dp"/>
+            <!-- Error message -->
+            <TextView
+                android:id="@+id/phoneErrorTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FF0000"
+                android:text=""
+                android:visibility="gone"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"/>
 
-        <!-- Amount -->
-        <EditText
-            android:id="@+id/amountEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Amount"
-            android:inputType="number"
-            android:background="@drawable/edittext_border"
-            android:padding="12dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="24dp"/>
 
-        <!-- Purpose -->
-        <EditText
-            android:id="@+id/purposeEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Purpose"
-            android:inputType="text"
-            android:background="@drawable/edittext_border"
-            android:padding="12dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="24dp"/>
+            <!-- Email Address -->
+            <EditText
+                android:id="@+id/emailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email Address"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/edittext_border"
+                android:padding="12dp"
+                android:layout_marginTop="16dp" />
 
-    </LinearLayout>
-</ScrollView>
+            <!-- ID Front -->
+            <EditText
+                android:id="@+id/idFrontEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ID Front"
+                android:focusable="false"
+                android:clickable="true"
+                android:background="@drawable/edittext_border"
+                android:drawableEnd="@drawable/upload"
+                android:padding="12dp"
+                android:layout_marginTop="16dp" />
+
+            <!-- ID Back -->
+            <EditText
+                android:id="@+id/idBackEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ID Back"
+                android:focusable="false"
+                android:clickable="true"
+                android:background="@drawable/edittext_border"
+                android:drawableEnd="@drawable/upload"
+                android:padding="12dp"
+                android:layout_marginTop="16dp" />
+
+            <!-- Amount -->
+            <EditText
+                android:id="@+id/amountEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Amount"
+                android:inputType="number"
+                android:background="@drawable/edittext_border"
+                android:padding="12dp"
+                android:layout_marginTop="16dp" />
+
+            <!-- Purpose -->
+            <EditText
+                android:id="@+id/purposeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Purpose"
+                android:inputType="text"
+                android:background="@drawable/edittext_border"
+                android:padding="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <!-- Submit Button -->
     <Button
@@ -126,11 +132,11 @@
         android:layout_height="wrap_content"
         android:text="SUBMIT"
         android:textStyle="bold"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="#F7931E"
         android:textColor="#000000"
-        android:padding="16dp"/>
+        android:padding="16dp" />
 
 </LinearLayout>

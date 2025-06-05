@@ -18,6 +18,15 @@
         android:theme="@style/Theme.Moneymate"
         tools:targetApi="31">
         <activity
+            android:name=".NotificationViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DenialDialogActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DisburseDialogActivity"
+            android:exported="false" />
+        <activity
             android:name=".DialogFailureActivity"
             android:exported="false" />
         <activity

@@ -109,19 +109,34 @@ public class SigninActivity extends AppCompatActivity {
     private void saveUserAndProceed(LoginResponse loginResponse) {
         SharedPreferences preferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("username", loginResponse.getUsername());
-        editor.putString("user_type", loginResponse.getUserType());
 
-        if ("user".equals(loginResponse.getUserType())) {
-            editor.putString("borrower_id", loginResponse.getBorrowerId());
-        } else if ("lender".equals(loginResponse.getUserType())) {
-            editor.putString("lender_id", loginResponse.getLenderId());
+        String username = loginResponse.getUsername();
+        String userType = loginResponse.getUserType();
+        String lenderId = loginResponse.getLenderId();
+        String borrowerId = loginResponse.getBorrowerId();
+
+        // Debug logs
+        android.util.Log.d("SigninActivity", "Saving user: " + username);
+        android.util.Log.d("SigninActivity", "user_type: " + userType);
+        android.util.Log.d("SigninActivity", "lender_id: " + lenderId);
+        android.util.Log.d("SigninActivity", "borrower_id: " + borrowerId);
+
+        editor.putString("username", username);
+        editor.putString("user_type", userType);
+
+        if ("user".equals(userType)) {
+            editor.putString("borrower_id", borrowerId);
+        } else if ("lender".equals(userType)) {
+            editor.putString("lender_id", lenderId);
         }
 
         editor.apply();
+
+        android.util.Log.d("SigninActivity", "SharedPreferences saved");
 
         Toast.makeText(SigninActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(SigninActivity.this, SelectionActivity.class));
         finish();
     }
+
 }

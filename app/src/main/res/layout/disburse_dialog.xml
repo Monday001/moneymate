@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/success_dialog_bg"
+    android:gravity="center"
+    android:elevation="4dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Disburse Loan?"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Are you sure you want to disburse this loan?"
+        android:textAlignment="center"
+        android:layout_marginTop="12dp"
+        android:textColor="@android:color/black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="24dp">
+
+        <Button
+            android:id="@+id/btnDisburse"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="Disburse"
+            android:backgroundTint="#F7931E"
+            app:cornerRadius="15dp"
+            android:textColor="#fff"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:backgroundTint="#F44336"
+            app:cornerRadius="15dp"
+            android:textColor="#fff"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+</LinearLayout>

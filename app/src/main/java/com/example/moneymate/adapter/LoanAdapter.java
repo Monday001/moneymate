@@ -41,8 +41,8 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder
     @Override
     public void onBindViewHolder(@NonNull LoanViewHolder holder, int position) {
         Loan loan = loanList.get(position);
-        holder.title.setText(loan.purpose != null ? loan.purpose : "No purpose");
-        holder.amount.setText(String.valueOf(loan.amount));
+        holder.title.setText(loan.getPurpose() != null ? loan.getPurpose() : "No purpose");
+        holder.amount.setText(String.valueOf(loan.getAmount()));
     }
 
     @Override

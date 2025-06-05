@@ -3,9 +3,16 @@ package com.example.moneymate.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Payment implements Parcelable {
+    @SerializedName("ref")
     private String transactionId;
+
+    @SerializedName("date")
     private String date;
+
+    @SerializedName("amount")
     private String amount;
 
     public Payment(String transactionId, String date, String amount) {

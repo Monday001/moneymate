@@ -1,24 +1,19 @@
 package com.example.moneymate.models;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class LoanResponse {
     private boolean success;
-    private List<LoanApplication> applications;
+
+    @SerializedName("applications") // This must match the JSON key from your API response
+    private List<Loan> applications;
 
     public boolean isSuccess() {
         return success;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public List<LoanApplication> getApplications() {
+    public List<Loan> getApplications() {
         return applications;
-    }
-
-    public void setApplications(List<LoanApplication> applications) {
-        this.applications = applications;
     }
 }

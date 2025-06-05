@@ -3,6 +3,7 @@ package com.example.moneymate.models;
 import java.util.List;
 
 public class LenderHistory {
+    private int loanId;
     private String username;
     private String amount;
     private String status;
@@ -15,9 +16,10 @@ public class LenderHistory {
     private String purpose;
     private List<Payment> paymentHistory;
 
-    public LenderHistory(String username, String amount, String status, String date,
+    public LenderHistory(int loanId, String username, String amount, String status, String date,
                          String phone, String email, String idFront, String idBack, String purpose,
                          List<Payment> paymentHistory) {
+        this.loanId = loanId;
         this.username = username;
         this.amount = amount;
         this.status = status;
@@ -31,6 +33,9 @@ public class LenderHistory {
     }
 
     // Getters and Setters
+    public int getLoanId() {
+        return loanId;
+    }
     public String getName() {
         return username;
     }
