@@ -11,14 +11,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.moneymate.R;
 import com.example.moneymate.models.BorrowerLoan;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BorrowerLoanAdapter extends RecyclerView.Adapter<BorrowerLoanAdapter.ViewHolder> {
 
-    private List<BorrowerLoan> loanList;
+    private List<BorrowerLoan> loanList = new ArrayList<>();
 
     public BorrowerLoanAdapter(List<BorrowerLoan> loanList) {
-        this.loanList = loanList;
+        if (loanList != null) {
+            this.loanList = loanList;
+        }
+    }
+
+    public void updateData(List<BorrowerLoan> newLoanList) {
+        loanList.clear();
+        if (newLoanList != null) {
+            loanList.addAll(newLoanList);
+        }
+        notifyDataSetChanged(); // Refresh RecyclerView
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

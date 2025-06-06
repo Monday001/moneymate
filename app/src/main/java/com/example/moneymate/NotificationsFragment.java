@@ -1,7 +1,6 @@
 package com.example.moneymate;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moneymate.adapter.NotificationAdapter;
 import com.example.moneymate.models.Notification;
+import com.example.moneymate.models.NotificationResponse;
 import com.example.moneymate.network.ApiClient;
 import com.example.moneymate.network.ApiService;
 
@@ -58,11 +58,11 @@ public class NotificationsFragment extends Fragment {
 
         // Fetch notifications from API
         ApiService api = ApiClient.getRetrofitInstance().create(ApiService.class);
-        api.getNotifications(borrowerId).enqueue(new Callback<List<Notification>>() {
+        api.getNotifications(borrowerId).enqueue(new Callback<NotificationResponse>() {
             @Override
-            public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    notifications = response.body();
+            public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+                    notifications = response.body().getNotifications();
                     adapter = new NotificationAdapter(getContext(), notifications);
                     recyclerView.setAdapter(adapter);
                 } else {
@@ -71,7 +71,7 @@ public class NotificationsFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<Notification>> call, Throwable t) {
+            public void onFailure(Call<NotificationResponse> call, Throwable t) {
                 Toast.makeText(getContext(), "Failed to fetch notifications", Toast.LENGTH_SHORT).show();
             }
         });

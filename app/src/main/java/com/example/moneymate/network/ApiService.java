@@ -15,6 +15,7 @@ import com.example.moneymate.models.LoanStatusResponse;
 import com.example.moneymate.models.LoginRequest;
 import com.example.moneymate.models.LoginResponse;
 import com.example.moneymate.models.Notification;
+import com.example.moneymate.models.NotificationResponse;
 import com.example.moneymate.models.P2PResponse;
 import com.example.moneymate.models.PhoneResponse;
 import com.example.moneymate.models.Repayment;
@@ -129,8 +130,7 @@ public interface ApiService {
     );
 
     @GET("get_notifications.php")
-    Call<List<Notification>> getNotifications(@Query("borrower_id") int borrowerId);
-
+    Call<NotificationResponse> getNotifications(@Query("borrower_id") int borrowerId);
 
     @GET("getLatestDisbursedLoan.php")
     Call<LatestLoanResponse> getLatestDisbursedLoan(@Query("phone_number") String phoneNumber);

@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class NotificationViewActivity extends AppCompatActivity {
 
-    TextView notification_name, detail_amount, detail_status, messageTextView;
+    TextView tvName, tvAmount, tvStatus, tvMessage;
     Button btnClose;
 
     @Override
@@ -16,11 +16,10 @@ public class NotificationViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_view);
 
-        // Initialize views
-        notification_name = findViewById(R.id.notification_name);
-        detail_amount = findViewById(R.id.detail_amount);
-        detail_status = findViewById(R.id.detail_status);
-        messageTextView = findViewById(R.id.messageTextView);
+        tvName = findViewById(R.id.notification_name);
+        tvAmount = findViewById(R.id.detail_amount);
+        tvStatus = findViewById(R.id.detail_status);
+        tvMessage = findViewById(R.id.messageTextView);
         btnClose = findViewById(R.id.btnClose);
 
         // Get data from intent
@@ -29,13 +28,11 @@ public class NotificationViewActivity extends AppCompatActivity {
         String status = getIntent().getStringExtra("status");
         String message = getIntent().getStringExtra("message");
 
-        // Set values to views
-        notification_name.setText(fullName);
-        detail_amount.setText("Amount: Ksh " + amount);
-        detail_status.setText("Status: " + status);
-        messageTextView.setText(message);
+        tvName.setText(fullName != null ? fullName : "N/A");
+        tvAmount.setText(amount != null ? "Kshs. " + amount : "Kshs. 0.00");
+        tvStatus.setText(status != null ? status : "Status not available");
+        tvMessage.setText(message != null ? message : "No message available");
 
-        // Close button finishes the activity
         btnClose.setOnClickListener(v -> finish());
     }
 }
