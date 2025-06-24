@@ -5,6 +5,6 @@
     <solid android:color="@android:color/transparent" />
 
     <stroke
-        android:width="2dp"
-        android:color="#3F00FF" /> <!-- Same blue color as your theme -->
+        android:width="1dp"
+        android:color="@color/primaryColor" />
 </shape>

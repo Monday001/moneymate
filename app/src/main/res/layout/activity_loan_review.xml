@@ -1,10 +1,9 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#F3F3F3"
-    android:padding="16dp">
+    android:background="@color/backgroundColor">
 
     <!-- Scrollable Content -->
     <ScrollView
@@ -16,130 +15,424 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp">
+            >
 
+            <!-- Header -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="90dp"
+            >
+            <!-- Back Button -->
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/back_button_background"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="@string/back"/>
+
+            <!-- loan application text -->
+
+            <TextView
+                android:id="@+id/loanApplicationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Loan application"
+                android:textColor="@color/black"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+        <!-- Header -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="24dp"
+            >
+
+            <View
+                android:id="@+id/userLender"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="6dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/circle_border"
+                android:layout_centerVertical="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="24dp"
+                >
             <TextView
                 android:id="@+id/borrowerFullName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="John Doe"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="25sp"
+                android:textColor="@color/black"
+                 />
+
+                <TextView
+                    android:id="@+id/loanId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loan ID :  12345"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/loanStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pending"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="15sp"
+                    android:textColor="@color/primaryColor"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/line"
+                />
+
+            <!-- Loan details -->
+
+            <TextView
+                android:id="@+id/loanDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="30dp"
+                android:text="Loan Details"
+                android:fontFamily="@font/poppins_medium"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="48dp" />
+                android:textColor="@color/black"
+                 />
 
-            <TextView
-                android:id="@+id/loanAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kshs. 10,000"
-                android:textSize="18sp"
-                android:textColor="#0047AB"
-                android:layout_marginTop="16dp" />
-
-            <TextView
-                android:id="@+id/loanPurpose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="School fees"
-                android:textSize="18sp"
-                android:textColor="#0047AB"
-                android:layout_marginTop="16dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Phone Number"
-                android:layout_marginTop="24dp" />
-
-            <TextView
-                android:id="@+id/borrowerPhone"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp"
-                android:layout_marginTop="8dp"
-                android:text="0123456789"
-                android:textColor="@android:color/black" />
+                android:orientation="horizontal"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="12dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:maxLength="1"
+                    android:layout_marginEnd="38dp"
+                    >
+                    <TextView
+                        android:id="@+id/loanAmountLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Loan Amount"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="15sp"
+                        android:textColor="@color/hintColor"
+                        />
+
+                    <TextView
+                        android:id="@+id/loanAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kshs. 10,000"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                         />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:maxLength="1"
+                    android:layout_marginEnd="38dp"
+                    >
+                    <TextView
+                        android:id="@+id/loanInterestLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Interest"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="15sp"
+                        android:textColor="@color/hintColor"
+                        />
+
+                    <TextView
+                        android:id="@+id/loanInterest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1.5%"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:maxLength="1"
+                    >
+                    <TextView
+                        android:id="@+id/gracePeriodLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Grace Period"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="15sp"
+                        android:textColor="@color/hintColor"
+                        />
+
+                    <TextView
+                        android:id="@+id/gracePeriod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3 months"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/line"
+                />
+
+            <!-- Payment Schedule -->
 
             <TextView
+                android:id="@+id/paymentSchedule"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email Address"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="30dp"
+                android:text="Payment Schedule"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                />
 
-            <TextView
-                android:id="@+id/tvEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp"
-                android:layout_marginTop="8dp"
-                android:text="johndoe@example.com"
-                android:textColor="@android:color/black" />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ID Front"
-                android:layout_marginTop="16dp" />
+                android:orientation="vertical"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="12dp"
+                >
+                <TextView
+                    android:id="@+id/monthlyPaymentLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Monthly Payment"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="15sp"
+                    android:textColor="@color/hintColor"
+                    />
 
-            <TextView
-                android:id="@+id/tvIdFront"
+                <TextView
+                    android:id="@+id/monthlyPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10,000"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp"
-                android:layout_marginTop="8dp"
-                android:text="ID Front.jpg"
-                android:textColor="@android:color/black" />
+                android:layout_height="1dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/line"
+                />
+
+            <!-- Notes -->
 
             <TextView
+                android:id="@+id/notes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ID Back"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="30dp"
+                android:text="Notes"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                />
 
-            <TextView
-                android:id="@+id/tvIdBack"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp"
+                android:orientation="vertical"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="12dp"
+                >
+                <TextView
+                    android:id="@+id/loanPurposeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loan Purpose"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="15sp"
+                    android:textColor="@color/hintColor"
+                    />
+
+                <TextView
+                    android:id="@+id/loanPurpose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home improvement"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginTop="8dp"
-                android:text="ID Back.jpg"
-                android:textColor="@android:color/black" />
+                >
+                <TextView
+                    android:id="@+id/idFrontLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ID Front"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="15sp"
+                    android:textColor="@color/hintColor"
+                    />
+
+                <TextView
+                    android:id="@+id/idFront"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ID Front.jpg"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="15sp"
+                    android:textColor="@color/primaryColor"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="8dp"
+                >
+                <TextView
+                    android:id="@+id/idBackLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ID Back"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="15sp"
+                    android:textColor="@color/hintColor"
+                    />
+
+                <TextView
+                    android:id="@+id/idBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ID Back.jpg"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="15sp"
+                    android:textColor="@color/primaryColor"
+                    />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <!-- Fixed Buttons at Bottom -->
+    <!-- Fixed Buttons -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginBottom="24dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp">
 
         <Button
             android:id="@+id/btnApprove"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="APPROVE"
-            android:backgroundTint="#FF9800"
-            android:textColor="#FFF"
+            android:layout_height="55dp"
+            android:padding="12dp"
+            android:gravity="center"
+            app:cornerRadius="15dp"
+            android:text="Approve"
+            android:fontFamily="@font/poppins_regular"
+            android:backgroundTint="@color/primaryColor"
+            android:textSize="15sp"
+            android:textColor="#000"
             android:layout_marginEnd="8dp" />
 
         <Button
             android:id="@+id/btnDeny"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="DENY"
-            android:backgroundTint="#FF9800"
-            android:textColor="#FFF"
+            android:layout_height="55dp"
+            android:padding="12dp"
+            android:gravity="center"
+            app:cornerRadius="15dp"
+            android:text="Deny"
+            android:fontFamily="@font/poppins_regular"
+            android:backgroundTint="@color/primaryColor"
+            android:textSize="15sp"
+            android:textColor="#000"
             android:layout_marginStart="8dp" />
     </LinearLayout>
 </LinearLayout>

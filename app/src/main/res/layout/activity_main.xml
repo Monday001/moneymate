@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F0F0">
+    android:background="@color/backgroundColor">
 
     <!-- Top Image -->
     <ImageView
@@ -25,8 +25,6 @@
         android:id="@+id/appTitleContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:backgroundTint="#F0F0F0"
         android:orientation="vertical"
         android:padding="36dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,10 +37,10 @@
             android:id="@+id/appTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="50sp"
+            android:fontFamily="@font/poppins_black"
+            android:textSize="40sp"
             android:textStyle="bold"
-            android:textColor="#000000"
+            android:textColor="@color/primaryColor"
             tools:text="MoneyMate" />
 
 
@@ -50,10 +48,11 @@
             android:id="@+id/subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/poppins_regular"
             android:text="Peer-to-Peer Lending Application for\nEnhanced Financial Inclusion"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
 
         <!-- Description -->
         <TextView
@@ -61,23 +60,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:fontFamily="@font/poppins_regular"
             android:text="Making financial services more inclusive\nand accessible."
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <!-- Get Started Button -->
     <Button
         android:id="@+id/btnGetStarted"
-        android:layout_width="200dp"
+        android:layout_width="212dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginStart="201dp"
         android:layout_marginTop="152dp"
         android:layout_marginEnd="106dp"
         android:layout_marginBottom="306dp"
-        android:backgroundTint="#F7931E"
+        android:backgroundTint="@color/primaryColor"
         android:padding="18dp"
+        android:fontFamily="@font/poppins_regular"
         android:text="GET STARTED"
         android:textColor="#000000"
         android:textSize="18sp"

@@ -1,58 +1,72 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#E0E0E0"
+    android:background="@color/backgroundColor"
     android:fillViewport="true">
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:layout_marginTop="24dp">
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="90dp">
 
         <TextView
             android:id="@+id/borrower_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hi John Doe"
+            android:fontFamily="@font/poppins_medium"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="25sp" />
 
         <View
             android:id="@+id/userBorrower"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:background="@drawable/circle_border"
             android:layout_centerVertical="true" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:padding="18dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="12dp"
         android:background="@drawable/selection_tile"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="24dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="24dp"
         android:radius="10dp">
 
         <TextView
+            android:id="@+id/loan_bal"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Loan Balances"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_alignParentStart="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
             android:id="@+id/loan_balance"
+            android:layout_marginStart="8dp"
+            android:layout_below="@id/loan_bal"
             android:text="Kshs. 10,000"
-            android:textSize="28sp"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
+            android:textSize="30sp"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/primaryColor"
             android:layout_alignParentStart="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -60,45 +74,126 @@
 
         <Button
             android:id="@+id/repay_button"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="48dp"
-            android:backgroundTint="#F7931E"
-            app:cornerRadius="15dp"
-            android:text="REPAY"
-            android:textColor="#FFFFFF" />
+            android:layout_marginTop="8dp"
+            style="@style/CustomButton"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:focusable="true"
+            android:layout_below="@id/loan_balance"
+            android:text="Repay"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_regular" />
     </RelativeLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="History"
-        android:textSize="16sp"
-        android:textColor="@android:color/black"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="10dp" />
 
     <TextView
         android:id="@+id/no_loans_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="You currently have no loans"
-        android:textSize="16sp"
-        android:textColor="@android:color/black"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="15sp"
+        android:textColor="@color/black"
         android:layout_marginTop="24dp"
         android:visibility="gone"
         android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:maxLength="1"
+        android:layout_marginStart="30dp"
+        >
+        <TextView
+            android:id="@+id/loanAmountLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loan repayment due in"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/loanAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="60 Days"
+            android:textSize="30sp"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/primaryColor"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:maxLength="1"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="12dp">
+
+        <LinearLayout
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginEnd="54dp"
+            android:maxLength="1">
+            <TextView
+                android:id="@+id/approved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Approved"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:gravity="top" />
+
+            <View
+                android:id="@+id/selection_line"
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/selection_line" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/deniedTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="54dp"
+            android:text="Denied"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:gravity="top" />
+
+        <TextView
+            android:id="@+id/pendingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Pending"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:gravity="top" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginHorizontal="20dp">
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp">
 
         <!-- Single Item -->
         <androidx.recyclerview.widget.RecyclerView
@@ -106,12 +201,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
             />
 
 
-        <!-- Repeat above block for other users like Lorem, Ipsum -->
+        <!-- same block for other Loans from different companies -->
     </LinearLayout>
 
 </LinearLayout>

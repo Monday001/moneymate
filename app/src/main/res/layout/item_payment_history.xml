@@ -1,75 +1,85 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:orientation="vertical"
     android:clipToPadding="false"
     android:clipChildren="false">
 
-    <!-- Circular Icon -->
+    <!-- Horizontal row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:layout_marginBottom="8dp">
+
+        <!-- Content with padding -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Circle View -->
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/circle_border"
+                android:layout_marginEnd="12dp" />
+
+            <!-- refCode and Date -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/transactionId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="QWERTY123"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="15sp"
+                    android:textColor="@color/hintColor"
+                    android:layout_marginTop="4dp"/>
+
+                <TextView
+                    android:id="@+id/paymentDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="19-04-2025"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="15sp"
+                    android:textColor="@color/hintColor"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Payed Amount -->
+        <TextView
+            android:id="@+id/paymentAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginEnd="8dp"
+            android:text="10,000"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="20sp"
+            android:textColor="@color/hintColor"/>
+    </LinearLayout>
+
+    <!-- Bottom Divider Line -->
     <View
-        android:id="@+id/circleIcon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:background="@drawable/circle_border"
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:contentDescription="circle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <!-- Payment Code -->
-    <TextView
-        android:id="@+id/transactionId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="QWERTY123"
-        android:textColor="#000"
-        android:textSize="16sp"
-        android:layout_marginStart="24dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/circleIcon"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <!-- Date -->
-    <TextView
-        android:id="@+id/paymentDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="19-04-2025"
-        android:textColor="#777"
-        android:textSize="14sp"
-        android:layout_marginStart="24dp"
-        app:layout_constraintStart_toEndOf="@+id/circleIcon"
-        app:layout_constraintTop_toBottomOf="@id/transactionId" />
-
-    <!-- Amount -->
-    <TextView
-        android:id="@+id/paymentAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="10,000"
-        android:textColor="#000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <!-- Bottom Line -->
-    <View
-        android:id="@+id/bottomLine"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="24dp"
-        android:background="#CCCCCC"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/paymentDate" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginTop="4dp"
+        android:background="@drawable/line"/>
+</LinearLayout>

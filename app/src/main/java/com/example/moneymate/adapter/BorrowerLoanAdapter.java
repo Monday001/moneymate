@@ -37,8 +37,8 @@ public class BorrowerLoanAdapter extends RecyclerView.Adapter<BorrowerLoanAdapte
 
         public ViewHolder(View itemView) {
             super(itemView);
-            loanAmountText = itemView.findViewById(R.id.tvAmount);
-            companyNameText = itemView.findViewById(R.id.tvFullname);
+            loanAmountText = itemView.findViewById(R.id.p2p_maxAmount);
+            companyNameText = itemView.findViewById(R.id.p2p_companyName);
         }
     }
 

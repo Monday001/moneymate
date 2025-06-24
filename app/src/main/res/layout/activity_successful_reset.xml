@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E5E5E5"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundColor"
     tools:context=".SuccessfulResetActivity">
 
     <!-- Check Circle Icon -->
@@ -12,8 +13,8 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:src="@drawable/check_circle"
+        android:layout_marginTop="90dp"
+        android:src="@drawable/success"
         android:scaleType="centerInside" />
 
 
@@ -28,42 +29,43 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="131dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="131dp"
         android:gravity="center"
         android:text="Successful"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:fontFamily="@font/poppins_semibold"/>
 
     <TextView
         android:id="@+id/successMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Congratulations your password has been changed. Click continue to login"
-        android:textSize="16sp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:textColor="#000000"
-        android:layout_below="@id/successfulResetTitle"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="24dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp" />
+        android:text="Congratulations your password has been changed. Click continue to login."
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:fontFamily="@font/poppins_regular"
+        android:layout_below="@id/successfulResetTitle"
+         />
 
     <!-- Continue Button -->
     <Button
         android:id="@+id/verifyCodeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/successMessage"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/button_background"
-        android:backgroundTint="#F29B2B"
+        android:layout_width="200dp"
+        android:layout_height="55dp"
         android:gravity="center"
-        android:paddingStart="68dp"
-        android:paddingEnd="68dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
+        android:padding="12dp"
+        android:layout_marginTop="24dp"
+        app:cornerRadius="15dp"
+        android:layout_centerHorizontal="true"
         android:text="Continue"
-        android:textColor="#000000"
-        android:textStyle="bold" />
+        android:fontFamily="@font/poppins_regular"
+        android:backgroundTint="@color/primaryColor"
+        android:textSize="15sp"
+        android:textColor="#000"
+        android:layout_below="@id/successMessage"/>
 </RelativeLayout>
