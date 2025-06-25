@@ -6,7 +6,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="sign_in_instead">Sign in instead \?</string>
     <string name="sign_up_heading">Sign up</string>
-    <string name="sign_up">SIGN UP</string>
+    <string name="sign_up">Sign up</string>
     <string name="app_title_colored">
     <![CDATA[
         <font color="#3F00FF">Money</font><font color="#F7931E">Mate</font>
@@ -17,6 +17,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_borrower_home">BorrowerHomeActivity</string>
+    <string name="back">back button</string>
 
 
 </resources>

@@ -2,7 +2,6 @@ package com.example.moneymate;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +22,7 @@ import retrofit2.Retrofit;
 
 public class LoanReviewActivity extends AppCompatActivity {
 
-    TextView tvName, tvAmount, tvLoanPurpose, tvEmail, tvPhonenumber, tvIdFront, tvIdBack;
+    TextView tvName, tvAmount, tvLoanPurpose, tvIdFront, tvIdBack;
     int loanId;
 
     @Override
@@ -34,10 +33,8 @@ public class LoanReviewActivity extends AppCompatActivity {
         tvName = findViewById(R.id.borrowerFullName);
         tvAmount = findViewById(R.id.loanAmount);
         tvLoanPurpose = findViewById(R.id.loanPurpose);
-        tvPhonenumber = findViewById(R.id.borrowerPhone);
-        tvEmail = findViewById(R.id.tvEmail);
-        tvIdFront = findViewById(R.id.tvIdFront);
-        tvIdBack = findViewById(R.id.tvIdBack);
+        tvIdFront = findViewById(R.id.idFront);
+        tvIdBack = findViewById(R.id.idBack);
 
         Button btnApprove = findViewById(R.id.btnApprove);
         Button btnDeny = findViewById(R.id.btnDeny);
@@ -49,8 +46,6 @@ public class LoanReviewActivity extends AppCompatActivity {
         String name = getIntent().getStringExtra("full_name");
         String amount = getIntent().getStringExtra("amount");
         String purpose = getIntent().getStringExtra("purpose");
-        String phone = getIntent().getStringExtra("phone");
-        String email = getIntent().getStringExtra("email");
         String idFront = getIntent().getStringExtra("id_front");
         String idBack = getIntent().getStringExtra("id_back");
         loanId = getIntent().getIntExtra("loan_id", -1);
@@ -63,8 +58,6 @@ public class LoanReviewActivity extends AppCompatActivity {
         tvName.setText(name);
         tvAmount.setText("Kshs. " + amount);
         tvLoanPurpose.setText(purpose);
-        tvPhonenumber.setText(phone);
-        tvEmail.setText(email);
         tvIdFront.setText(idFront);
         tvIdBack.setText(idBack);
     }

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primaryColor">#018574</color>
+    <color name="cardColor">#CECCCC</color>
+    <color name="lineColor">#4D000000</color>
+    <color name="hintColor">#80000000</color>
+    <color name="backgroundColor">#D9D9D9</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
 </resources>

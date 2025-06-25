@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#E0E0E0"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:padding="30dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        >
 
-        <!-- Header Title -->
+        <!-- Title and Profile Circle -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:layout_marginTop="24dp">
+            android:layout_marginTop="60dp">
 
             <TextView
-                android:id="@+id/termsTitle"
+                android:id="@+id/lenderTermsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Terms and Conditions"
-                android:textColor="@android:color/black"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:text="Terms"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black"
+                android:textSize="25sp"/>
 
-            <!-- Optional profile or icon -->
             <View
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/circle_border"
                 android:layout_centerVertical="true" />
@@ -39,80 +38,173 @@
 
         <!-- Input fields -->
         <LinearLayout
-            android:id="@+id/terms_input_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="12dp">
 
-            <EditText
-                android:id="@+id/term_1"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="12dp"
-                android:hint="Enter Term 1"
-                android:textColor="@color/black"
-                android:textColorHint="@color/material_dynamic_neutral40"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp" />
-
-            <EditText
-                android:id="@+id/term_2"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="12dp"
-                android:hint="Enter Term 2"
-                android:textColor="@color/black"
-                android:textColorHint="@color/material_dynamic_neutral40"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp" />
-
-            <EditText
-                android:id="@+id/term_3"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="12dp"
-                android:hint="Enter Term 3"
-                android:textColor="@color/black"
-                android:textColorHint="@color/material_dynamic_neutral40"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp" />
-
-            <EditText
-                android:id="@+id/term_4"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="12dp"
-                android:hint="Enter Term 4"
-                android:textColor="@color/black"
-                android:textColorHint="@color/material_dynamic_neutral40"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp" />
-
-            <EditText
-                android:id="@+id/term_5"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="20dp"
-                android:hint="Enter Term 5"
-                android:textColor="@color/black"
-                android:textColorHint="@color/material_dynamic_neutral40"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp" />
-
-            <Button
-                android:id="@+id/btn_update"
+            <!-- Max Amount -->
+            <TextView
+                android:id="@+id/maxAmountLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="UPDATE"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:background="@drawable/button_rounded"
-                android:textColor="@android:color/black"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp" />
+                android:layout_marginBottom="8dp"
+                android:text="Max Loan Amount (Kshs)"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_regular"/>
+
+            <EditText
+                android:id="@+id/maxAmount"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="24dp"
+                android:hint="Enter max loan amount (e.g. 100,000)"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColorHint="@color/hintColor"
+                android:background="@drawable/edittext_border"
+                android:padding="12dp" />
+
+            <!-- Loan Interest -->
+            <TextView
+                android:id="@+id/loanInterestLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Interest rate  (% per annum)"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_regular"/>
+
+            <EditText
+                android:id="@+id/loanInterest"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="24dp"
+                android:hint="Enter interest rate (e.g. 1.8)"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColorHint="@color/hintColor"
+                android:background="@drawable/edittext_border"
+                android:padding="12dp" />
+
+            <!-- Grace Period -->
+            <TextView
+                android:id="@+id/gracePeriodLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Grace Period (Months)"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_regular"/>
+
+            <EditText
+                android:id="@+id/gracePeriod"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="24dp"
+                android:hint="Enter grace period (e.g. 12)"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColorHint="@color/hintColor"
+                android:background="@drawable/edittext_border"
+                android:padding="12dp" />
+
+            <!-- Monthly Penalty -->
+            <TextView
+                android:id="@+id/monthlyPenaltyLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Late Payment Penalty (% per month)"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_regular"/>
+
+            <EditText
+                android:id="@+id/monthlyPenalty"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="24dp"
+                android:hint="Enter late penalty (e.g. 2)"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColorHint="@color/hintColor"
+                android:background="@drawable/edittext_border"
+                android:padding="12dp" />
+
+            <!-- Processing Fee -->
+            <TextView
+                android:id="@+id/processingFeeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Processing Fee (Kshs)"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_regular"/>
+
+            <EditText
+                android:id="@+id/processingFee"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="24dp"
+                android:hint="Enter processing fee (e.g. 500)"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColorHint="@color/hintColor"
+                android:background="@drawable/edittext_border"
+                android:padding="12dp" />
+
+
+            <!-- Fixed Buttons -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="24dp"
+                >
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="55dp"
+                    android:padding="12dp"
+                    android:gravity="center"
+                    app:cornerRadius="15dp"
+                    android:text="Save"
+                    android:fontFamily="@font/poppins_regular"
+                    android:backgroundTint="@color/primaryColor"
+                    android:textSize="15sp"
+                    android:textColor="#000"
+                    android:layout_marginEnd="8dp" />
+
+                <Button
+                    android:id="@+id/btn_update"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="55dp"
+                    android:padding="12dp"
+                    android:gravity="center"
+                    app:cornerRadius="15dp"
+                    android:text="Edit"
+                    android:fontFamily="@font/poppins_regular"
+                    android:backgroundTint="@color/primaryColor"
+                    android:textSize="15sp"
+                    android:textColor="#000"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

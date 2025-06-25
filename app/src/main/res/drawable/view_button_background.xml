@@ -1,11 +1,19 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-
-    <solid android:color="#F28C28" />
-
-    <corners
-        android:topRightRadius="16dp"
-        android:bottomRightRadius="16dp"
-        android:topLeftRadius="0dp"
-        android:bottomLeftRadius="0dp" />
-</shape>
+<!-- drawable/rectangle_2.xml -->
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="89dp"
+    android:height="28dp"
+    android:viewportWidth="89"
+    android:viewportHeight="28"
+    >
+    <group>
+        <clip-path
+            android:pathData="M8 0H81C85.4183 0 89 3.58172 89 8V20C89 24.4183 85.4183 28 81 28H8C3.58172 28 0 24.4183 0 20V8C0 3.58172 3.58172 0 8 0Z"
+            />
+        <path
+            android:pathData="M8 0H81C85.4183 0 89 3.58172 89 8V20C89 24.4183 85.4183 28 81 28H8C3.58172 28 0 24.4183 0 20V8C0 3.58172 3.58172 0 8 0Z"
+            android:strokeWidth="1"
+            android:strokeColor="@color/primaryColor"
+            />
+    </group>
+</vector>

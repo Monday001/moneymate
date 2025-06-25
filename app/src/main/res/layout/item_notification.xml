@@ -1,28 +1,28 @@
-
 <LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="90dp"
-android:background="@drawable/card_background"
-android:orientation="horizontal"
-android:gravity="center_vertical"
-android:layout_marginBottom="8dp"
-android:clipToPadding="false"
-android:clipChildren="false">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_background"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="8dp"
+    android:padding="8dp"
+    android:clipToPadding="false"
+    android:clipChildren="false">
 
 <!-- Content with padding -->
 <LinearLayout
     android:layout_width="0dp"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:padding="18dp"
+    android:layout_marginStart="8dp"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <!-- Circle View -->
     <View
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:background="@drawable/circle_border"
         android:layout_marginEnd="12dp" />
 
@@ -34,23 +34,24 @@ android:clipChildren="false">
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvFullname"
+            android:id="@+id/p2p_companyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="John Doe"
-            android:textColor="#000000"
-            android:textSize="14sp"
-            android:textStyle="normal"/>
+            android:layout_marginTop="4dp"
+            android:text="Company 1"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/tvAmount"
+            android:id="@+id/p2p_maxAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10,000"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp"/>
+            android:text="Max amt 50,000"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="15sp"
+            android:textColor="@color/hintColor"
+            android:layout_marginTop="4dp"/>
     </LinearLayout>
 
 </LinearLayout>
@@ -59,11 +60,14 @@ android:clipChildren="false">
 <Button
     android:id="@+id/viewButton"
     android:layout_width="120dp"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:padding="8dp"
     android:text="VIEW"
     android:background="@drawable/view_button_background"
-    android:textColor="#000000"
-    android:textStyle="bold"
+    android:fontFamily="@font/poppins_regular"
+    android:textSize="15sp"
+    android:textColor="@color/black"
     android:gravity="center"
     android:minHeight="0dp"
     android:minWidth="0dp" />

@@ -2,215 +2,280 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0E0E0"
+    android:background="@color/backgroundColor"
     android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        >
 
         <!-- Company name and Profile Circle -->
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:layout_marginTop="24dp">
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="90dp">
 
             <TextView
                 android:id="@+id/company_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Company xyz"
+                android:text="Company 1"
+                android:fontFamily="@font/poppins_semibold"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="30sp" />
 
             <View
                 android:id="@+id/userLender"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/circle_border"
                 android:layout_centerVertical="true" />
         </RelativeLayout>
 
-        <!-- Info Cards Section -->
+
+    <!-- Info Cards Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_gravity="center"
+        android:maxLength="3"
+        android:clipToPadding="false">
+
+        <!-- Active Users -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@drawable/selection_tile"
             android:orientation="vertical"
-            android:padding="16dp"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:elevation="4dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:backgroundTintMode="src_in"
-            android:layout_marginHorizontal="20dp"
-            android:clipToPadding="false">
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            android:gravity="center"
+            android:padding="8dp"
+            android:radius="10dp"
+            android:layout_marginEnd="12dp"
+            android:maxLength="1">
+            <TextView
+                android:id="@+id/activeBorrowers"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:weightSum="2"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="8dp">
+                android:text="750"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="30sp"
+                android:textColor="@color/primaryColor"
+                android:gravity="top" />
 
-                <!-- Users Card -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/btn_tile"
-                    android:padding="12dp"
-                    >
-
-                    <TextView
-                        android:id="@+id/userTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Users"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:layout_marginEnd="18dp"/>
-
-                    <TextView
-                        android:id="@+id/userTotal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:text="0"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Approved Card -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/btn_tile"
-                    android:padding="12dp"
-                    android:layout_marginStart="8dp">
-
-                    <TextView
-                        android:id="@+id/approvedTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Approved"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:layout_marginEnd="18dp"/>
-
-                    <TextView
-                        android:id="@+id/approvedTotal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:text="0"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/active"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:weightSum="2"
-                android:layout_marginBottom="8dp">
+                android:text="Active"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:gravity="top" />
 
-                <!-- Complete Card -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/btn_tile"
-                    android:padding="12dp"
-                    >
-
-                    <TextView
-                        android:id="@+id/deniedTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Denied"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:layout_marginEnd="18dp"/>
-
-                    <TextView
-                        android:id="@+id/deniedTotal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:text="0"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-
-                <!-- Pending Card -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/btn_tile"
-                    android:padding="12dp"
-                    android:layout_marginStart="8dp">
-
-                    <TextView
-                        android:id="@+id/pendingTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Pending"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:layout_marginEnd="18dp"/>
-
-                    <TextView
-                        android:id="@+id/pendingTotal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="18dp"
-                        android:text="0"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/borrowers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Borrowers"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:gravity="top" />
         </LinearLayout>
 
-        <!-- History Title -->
+        <!-- Active Users -->
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selection_tile"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp"
+            android:radius="10dp"
+            android:layout_marginEnd="12dp"
+            android:maxLength="1">
+            <TextView
+                android:id="@+id/approvedLoans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="320"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="30sp"
+                android:textColor="@color/primaryColor"
+                android:gravity="top" />
+
+            <TextView
+                android:id="@+id/approved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Approved"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:gravity="top" />
+
+            <TextView
+                android:id="@+id/loans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loans"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:gravity="top" />
+        </LinearLayout>
+
+        <!-- Active Users -->
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selection_tile"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp"
+            android:radius="10dp"
+            android:layout_marginEnd="54dp"
+            android:maxLength="1">
+            <TextView
+                android:id="@+id/pendingApproval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="30sp"
+                android:textColor="@color/primaryColor"
+                android:gravity="top" />
+
+            <TextView
+                android:id="@+id/pending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pending"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:gravity="top" />
+
+            <TextView
+                android:id="@+id/loanApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loan App."
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:gravity="top" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:maxLength="1"
+        android:layout_marginStart="30dp"
+        >
         <TextView
+            android:id="@+id/total_loanBalanceLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="History"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="8dp" />
+            android:text="Loan Balances"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            />
 
-        <!-- History Items -->
+        <TextView
+            android:id="@+id/total_loanBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kshs. 320,000"
+            android:textSize="30sp"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/primaryColor"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:maxLength="1"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="12dp">
+
+        <LinearLayout
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginEnd="54dp"
+            android:maxLength="1">
+            <TextView
+                android:id="@+id/approvedTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Approved"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:gravity="top" />
+
+            <View
+                android:id="@+id/selection_line"
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/selection_line" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/deniedTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="54dp"
+            android:text="Denied"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:gravity="top" />
+
+        <TextView
+            android:id="@+id/pendingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Pending"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:gravity="top" />
+
+    </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginHorizontal="20dp">
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp">
 
             <!-- Single Item -->
             <androidx.recyclerview.widget.RecyclerView
@@ -218,14 +283,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:paddingBottom="16dp"
-                android:paddingTop="16dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
                 />
 
 
-            <!-- Repeat above block for other users like Lorem, Ipsum -->
+            <!-- same block for other Loans from different companies -->
         </LinearLayout>
-
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

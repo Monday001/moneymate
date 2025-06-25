@@ -1,60 +1,132 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0E0E0">
+    android:fillViewport="true"
+    android:background="@color/backgroundColor">
 
-    <!-- Header: Title and Profile Circle -->
-    <RelativeLayout
-        android:id="@+id/headerLayout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:layout_alignParentTop="true"
-        android:background="#E0E0E0"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
+        android:orientation="vertical">
+
+        <!-- Title and Profile Circle -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="90dp">
+
+            <TextView
+                android:id="@+id/lenderLoansTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loans"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black"
+                android:textSize="25sp"/>
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/circle_border"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <!-- Total loan Balance -->
 
         <TextView
-            android:id="@+id/loansTitle"
+            android:id="@+id/no_loans_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Loans"
+            android:text="You currently have no loan applications"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="15sp"
             android:textColor="@color/black"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true" />
+            android:layout_marginTop="24dp"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal" />
 
-        <View
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/circle_border"
-            android:layout_centerVertical="true" />
-    </RelativeLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical"
+            android:maxLength="1"
+            android:layout_marginStart="30dp"
+            >
+            <TextView
+                android:id="@+id/totalLoanAmountLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loan Balances"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                />
 
-    <TextView
-        android:id="@+id/no_loans_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="No loan applications available."
-        android:textSize="16sp"
-        android:textAlignment="center"
-        android:visibility="gone"
-        android:layout_marginTop="16dp" />
+            <TextView
+                android:id="@+id/totalLoanAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kshs. 320,000"
+                android:textSize="30sp"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/primaryColor"
+                />
+        </LinearLayout>
+
+        <!-- History Items -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="24dp"
+            >
+
+            <!-- Single Item -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lender_loans_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
+                />
+
+            <!-- same block for other loans -->
+
+            <!-- progress bar -->
+
+            <ProgressBar
+                android:id="@+id/p2p_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+            <!-- when loan applications failed to load -->
+
+            <TextView
+                android:id="@+id/p2p_empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No data available"
+                android:gravity="center"
+                android:visibility="gone"
+                android:padding="12dp"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="15sp"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
 
 
-    <!-- Scrollable RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lender_loans_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/headerLayout"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:clipToPadding="false" />
-</RelativeLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

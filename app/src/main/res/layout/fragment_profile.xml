@@ -1,49 +1,292 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0E0E0">
+    android:background="@color/backgroundColor"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
 
-    <!-- Header: Title and Profile Circle -->
-    <RelativeLayout
-        android:id="@+id/headerLayout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:layout_alignParentTop="true"
-        android:background="#E0E0E0"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
+        android:orientation="vertical">
 
+        <!-- Title -->
         <TextView
             android:id="@+id/profileTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="90dp"
             android:text="Profile"
+            android:fontFamily="@font/poppins_medium"
             android:textColor="@color/black"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true" />
+            android:textSize="25sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="24dp"
+            >
+
+            <View
+                android:id="@+id/userLender"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="6dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/circle_border"
+                android:layout_centerVertical="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="24dp"
+                >
+                <TextView
+                    android:id="@+id/borrowerFullName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="John Doe"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="25sp"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/phonenumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone :  0712345678"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email : johndoe@gmail.com"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:background="@drawable/selection_tile"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:radius="10dp">
+
+            <TextView
+                android:id="@+id/loan_bal"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Wallet Balance"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_alignParentStart="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/loan_balance"
+                android:layout_marginStart="8dp"
+                android:layout_below="@id/loan_bal"
+                android:text="Kshs. 10,000"
+                android:textSize="30sp"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/primaryColor"
+                android:layout_alignParentStart="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <Button
+                android:id="@+id/repay_button"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                style="@style/CustomButton"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:focusable="true"
+                android:layout_below="@id/loan_balance"
+                android:text="Withdraw"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_regular" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/no_loans_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You currently have no loans"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="24dp"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:maxLength="1"
+            android:layout_marginStart="30dp"
+            >
+            <TextView
+                android:id="@+id/loanAmountLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loan repayment due in"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/loanAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="60 Days"
+                android:textSize="30sp"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/primaryColor"
+                />
+        </LinearLayout>
+
+
+        <!-- progress bar -->
+
+            <ProgressBar
+                android:id="@+id/profile_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+
+        <TextView
+            android:id="@+id/loanDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="30dp"
+            android:text="Contact Support"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            />
 
         <View
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/circle_border"
-            android:layout_centerVertical="true" />
-    </RelativeLayout>
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/line"
+            />
 
-    <!-- Scrollable RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/borrower_profile_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/headerLayout"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:clipToPadding="false" />
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="12dp"
+            >
+            <!-- contact icon -->
+
+            <View
+                android:id="@+id/contactIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/phone"
+                android:contentDescription="@string/back"/>
+
+            <!-- contact number -->
+
+            <TextView
+                android:id="@+id/supportNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_medium"
+                android:text="0742148515"
+                android:textColor="@color/primaryColor"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="12dp"
+            >
+            <!-- contact icon -->
+
+            <View
+                android:id="@+id/emailIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/mail"
+                android:contentDescription="@string/back"/>
+
+            <!-- contact number -->
+
+            <TextView
+                android:id="@+id/supportEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_medium"
+                android:text="moneymate321@gmail.com"
+                android:textColor="@color/primaryColor"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <!--Logout Button -->
+
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"
+            app:cornerRadius="15dp"
+            android:layout_gravity="center"
+            android:text="Logout"
+            android:fontFamily="@font/poppins_regular"
+            android:backgroundTint="@color/primaryColor"
+            android:textSize="15sp"
+            android:textColor="#000" />
+
+
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

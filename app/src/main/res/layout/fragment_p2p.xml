@@ -2,34 +2,34 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0E0E0"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@color/backgroundColor">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
         <!-- Title and Profile Circle -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:layout_marginTop="24dp">
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="90dp">
 
             <TextView
                 android:id="@+id/p2pTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MoneyMate p2p"
+                android:fontFamily="@font/poppins_medium"
                 android:textColor="@color/black"
-                android:textSize="28sp"
-                android:textStyle="bold"/>
+                android:textSize="25sp"/>
 
             <View
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/circle_border"
                 android:layout_centerVertical="true" />
@@ -41,8 +41,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginTop="24dp"
             >
 
@@ -52,9 +52,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:paddingBottom="16dp"
-                android:paddingTop="16dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
                 />
+
+            <!-- same block for other lenders -->
+
+            <!-- progress bar -->
 
             <ProgressBar
                 android:id="@+id/p2p_progress_bar"
@@ -63,6 +67,8 @@
                 android:layout_gravity="center"
                 android:visibility="gone" />
 
+            <!-- when p2p lenders failed to load -->
+
             <TextView
                 android:id="@+id/p2p_empty_view"
                 android:layout_width="match_parent"
@@ -70,12 +76,11 @@
                 android:text="No data available"
                 android:gravity="center"
                 android:visibility="gone"
-                android:padding="16dp"
-                android:textColor="@android:color/darker_gray"/>
+                android:padding="12dp"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="15sp"
+                android:textColor="@color/black"/>
 
-
-
-            <!-- Repeat above block for other users like Lorem, Ipsum -->
         </LinearLayout>
 
 
